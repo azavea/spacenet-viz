@@ -8,17 +8,19 @@ fi
 
 function usage() {
     echo -n \
-"Usage: $(basename "$0") dest_s3_path [-rio -vegas -paris -shanghai -khartoum]
+"Usage: $(basename "$0") dest_s3_path [-rvpsk]
 
 Syncs tiff (and geojson/csv) data from s3://spacenet-dataset to dest_s3_path,
 for EMR ingest. Optionally pass in city names to download only their AOI data.
+
+-r  Rio
+-v  Vegas
+-p  Paris
+-s  Shanghai
+-k  Khartoum
+
 "
 }
-
-animals=( ["moo"]="cow" ["woof"]="dog")
-
-# echo "Sync started at…"
-# date "+%H:%M:%S"
 
 if [ "${BASH_SOURCE[0]}" = "${0}" ]
 then
@@ -28,35 +30,50 @@ then
     else
         if [ -n "$1" ]
         then
-            
-            usage
+          if [ -n "$2" ]
+          then
+            echo "$2"
+            # while getopts "m:" opt; do
+            # case $opt in
+            #     m) multi+=("$OPTARG");;
+            #     #...
+            # esac
+          else
+            echo "all"
+          fi
+        # done
+        # shift $((OPTIND -1))
+        # echo "The first value of the array 'multi' is '$multi'"
+        # echo "The whole list of values is '${multi[@]}'"
+        #
+        # echo "Or:"
+        #
+        # for val in "${multi[@]}"; do
+        #     echo " - $val"
+        # done
         else
             echo "ERROR: Destination S3 path required."
-            exit 1
+            echo
+            usage
+            exit 64
         fi
     fi
 fi
+
+# function download_if_not_exits() {
 #
-# if [ -n "$1" ]; then
-#   # use first argument as an environment name. Use this to decide how to connect
-#   # to the appropriate console.
-#   if [ "$1" = "production" ]; then
-#     heroku run rails console --app heroku-app-name
-#   elif [ "$1" = "staging" ]; then
-#     heroku run rails console --app heroku-app-name-staging
-#   else
-#     echo "Sorry, I don't know how to connect to the '$1' environment."
-#     exit 1
-#   fi
-# else
-#   # no argument provided, so just run the local console in the development
-#   # environment. Ensure the application is up to date first.
-#   script/update
-#   bin/rails console
-#   # or exit 1 bc bucket necessary?
-# fi
-#
-# # dirs_needed["Rio"] = ["AOI_1_Rio/srcData/rasterData", "AOI_1_Rio/srcData/vectorData"]
+#     pushd "${DIR}/../data" > /dev/null
+#     if [ ! -f $2 ]
+#     then
+#         echo "Downloading ${1}"
+#         aws s3 cp ${1} ${2}
+#     else
+#         echo "${2} already exists"
+#     fi
+#     popd > /dev/null
+# }
+# #
+# dirs_needed["Rio"] = []
 # # dirs_needed["X"] =
 #
 #
@@ -105,18 +122,19 @@ fi
 # aws s3 cp AOI_3_Paris/ s3://raster-vision/datasets/spacenet/AOI_3_Paris/ --recursive --exclude ".*"
 #
 #
-mkdir AOI_4_Shanghai
-aws s3api get-object --bucket spacenet-dataset --key AOI_4_Shanghai/AOI_4_Shanghai_Train.tar.gz --request-payer requester AOI_4_Shanghai/AOI_4_Shanghai_Train.tar.gz
-tar -xzf AOI_4_Shanghai/AOI_4_Shanghai_Train.tar.gz
-find . -name "*.tar.gz" -type f -delete
-aws s3 cp AOI_4_Shanghai/ s3://raster-vision/datasets/spacenet/AOI_4_Shanghai/ --recursive --exclude ".*"
-
+# mkdir AOI_4_Shanghai
+# aws s3api get-object --bucket spacenet-dataset --key AOI_4_Shanghai/AOI_4_Shanghai_Train.tar.gz --request-payer requester AOI_4_Shanghai/AOI_4_Shanghai_Train.tar.gz
+# tar -xzf AOI_4_Shanghai/AOI_4_Shanghai_Train.tar.gz
+# find . -name "*.tar.gz" -type f -delete
+# aws s3 cp AOI_4_Shanghai/ s3://raster-vision/datasets/spacenet/AOI_4_Shanghai/ --recursive --exclude ".*"
+# rm -rf AOI_4_Shanghai
 #
-#
-mkdir AOI_5_Khartoum
-aws s3api get-object --bucket spacenet-dataset --key AOI_5_Khartoum/AOI_5_Khartoum_Train.tar.gz --request-payer requester AOI_5_Khartoum/AOI_5_Khartoum.tar.gz
-tar -xzf AOI_5_Khartoum/AOI_5_Khartoum_Train.tar.gz
-find . -name "*.tar.gz" -type f -delete
-aws s3 cp AOI_5_Khartoum/ s3://raster-vision/datasets/spacenet/AOI_5_Khartoum/ --recursive --exclude ".*"
+# #
+# #
+# mkdir AOI_5_Khartoum
+# aws s3api get-object --bucket spacenet-dataset --key AOI_5_Khartoum/AOI_5_Khartoum_Train.tar.gz --request-payer requester AOI_5_Khartoum/AOI_5_Khartoum.tar.gz
+# tar -xzf AOI_5_Khartoum/AOI_5_Khartoum_Train.tar.gz
+# find . -name "*.tar.gz" -type f -delete
+# aws s3 cp AOI_5_Khartoum/ s3://raster-vision/datasets/spacenet/AOI_5_Khartoum/ --recursive --exclude ".*"
 #
 # echo "==> Data is synced with your bucket!"
