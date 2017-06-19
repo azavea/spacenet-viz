@@ -79,7 +79,6 @@ cluster-id*.txt
 last-step-id.txt
 
 scripts/upsert.json
-config-aws.mk
 logs
 
 # Local files #
