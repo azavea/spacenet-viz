@@ -1,4 +1,4 @@
-export NAME := RasterVision Ingest ${USER}
+export NAME := SpaceNet Ingest ${USER}
 export MASTER_INSTANCE:=m3.2xlarge
 export MASTER_PRICE := 0.5
 export WORKER_INSTANCE:=m3.2xlarge
