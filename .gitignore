@@ -88,3 +88,5 @@ viewer2
 src/app-frontend/sass-bak/
 
 data/*
+
+venv/*
