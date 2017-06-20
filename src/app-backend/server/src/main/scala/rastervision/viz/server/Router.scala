@@ -86,7 +86,6 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
 
   val tileReader: ValueReader[LayerId]
   val collectionReader: CollectionLayerReader[LayerId]
-
   val attributeStore: AttributeStore
 
   import AkkaSystem.materializer
@@ -957,7 +956,6 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                     }
                   tileOpt.map { tile =>
                     val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
-
                     val (red, green, blue) = {
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
                       val (min, max) = (4000, 15176)
@@ -966,12 +964,12 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                         if(isData(z)) { if(z > max) { max } else if(z < min) { min } else { z } }
                         else { z }
                       }
-                      val red = tile.band(0).convert(IntCellType).map(clamp _).normalize(min, max, 0, 255)
-                      val green = tile.band(1).convert(IntCellType).map(clamp _).normalize(min, max, 0, 255)
-                      val blue = tile.band(2).convert(IntCellType).map(clamp _).normalize(min, max, 0, 255)
+                      val red = tile.band(0).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
+                      val green = tile.band(1).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
+                      val blue = tile.band(2).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
+
                       (red, green, blue)
                     }
-
                     val bytes = MultibandTile(red, green, blue).renderPng.bytes
                     HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
                   }
