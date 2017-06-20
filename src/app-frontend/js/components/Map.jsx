@@ -101,7 +101,7 @@ export default class Map extends Component {
             // Imagery
 
             if(singleLayer.imagery.rgbChecked) {
-                var rgbUrl = "tms/imagery/rgb/isprs-potsdam-imagery-rgb/{z}/{x}/{y}"
+                var rgbUrl = "tms/imagery/rgb/spacenet-paris-imagery/{z}/{x}/{y}"
                 layers.push([<TileLayer
                                  key="rgbLayer"
                                  url={rgbUrl}
