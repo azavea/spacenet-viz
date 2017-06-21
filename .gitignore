@@ -81,6 +81,8 @@ last-step-id.txt
 scripts/upsert.json
 logs
 
+config-aws.mk
+
 # Local files #
 catalog/
 viewer
