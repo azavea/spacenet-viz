@@ -1,6 +1,6 @@
 export const isDevelopment = process.env.NODE_ENV === 'development';
 export const isProduction = process.env.NODE_ENV === 'production';
-export const defaultMapCenter = { lat: 52.403269, lng: 13.052745 };
+export const defaultMapCenter = { lat: 49.045040, lng: 2.190852 };
 
 export const LayerNames = {
     snowOn : "isprs-potsdam-dsm",

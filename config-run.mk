@@ -10,7 +10,7 @@ export PARTITION_COUNT := 20000
 # export LOCAL_CATALOG := file://${PWD}/data/catalog-hadoop/
 export LOCAL_INGEST_SCRIPT_PATH := ${PWD}/src/ingest/ingest.py
 export LOCAL_CATALOG := file://${PWD}/data/catalog/
-export LOCAL_PARIS_PATH := file://${PWD}/data/paris.tif
+export LOCAL_PARIS_PATH := file://${PWD}/data/
 
 export S3_CATALOG := s3://otid-data/viz/catalog
 export INPUT_DSM := s3://otid-data/input/1_DSM_normalisation_geotiff-with-geo/
