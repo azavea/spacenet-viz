@@ -123,7 +123,7 @@ export default class Map extends Component {
             }
 
             if(singleLayer.imagery.ndviChecked) {
-                var ndviUrl = "tms/imagery/ndvi/isprs-potsdam-imagery-rir/{z}/{x}/{y}"
+                var ndviUrl = "tms/imagery/ndvi/spacenet-paris-imagery/{z}/{x}/{y}"
                 layers.push([<TileLayer
                                  key="ndviLayer"
                                  url={ndviUrl}
@@ -134,7 +134,7 @@ export default class Map extends Component {
             }
 
             if(singleLayer.imagery.grayscaleChecked) {
-                var grayscaleUrl = "tms/imagery/grayscale/isprs-potsdam-imagery-rgb/{z}/{x}/{y}"
+                var grayscaleUrl = "tms/imagery/grayscale/spacenet-paris-imagery/{z}/{x}/{y}"
                 layers.push([<TileLayer
                                  key="grayscaleLayer"
                                  url={grayscaleUrl}

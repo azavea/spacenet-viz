@@ -958,15 +958,24 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                     val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
                     val (red, green, blue) = {
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
-                      val (min, max) = (4000, 15176)
 
-                      def clamp(z: Int) = {
-                        if(isData(z)) { if(z > max) { max } else if(z < min) { min } else { z } }
-                        else { z }
+                      // def clamp(z: Int) = {
+                      //   if(isData(z)) { if(z > max) { max } else if(z < min) { min } else { z } }
+                      //   else { z }
+                      // }
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = t.findMinMax
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
-                      val red = tile.band(0).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
-                      val green = tile.band(1).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
-                      val blue = tile.band(2).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
+
+                      val red = convertTile(tile.band(4))
+                      val green = convertTile(tile.band(2))
+                      val blue = convertTile(tile.band(1))
+
+                      // val red = tile.band(4).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
+                      // val green = tile.band(2).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
+                      // val blue = tile.band(1).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
 
                       (red, green, blue)
                     }
