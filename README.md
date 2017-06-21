@@ -1,6 +1,8 @@
-# ISPRS Potsdam data viewer
+# Spacenet Viz
 
-This is an application for viewing the ISPRS Potsdamn dataset and results from Azavea's Raster Vision project.
+This is an application for viewing the [SpaceNet](https://spacenetchallenge.github.io/) dataset and results from Azavea's Raster Vision project applied to SpaceNet.
+
+TODO: Modify README to remove all ISPRS viewer references.
 
 ### Requirements
 
@@ -30,9 +32,12 @@ vagrant ssh
 ./scripts/server.sh
 ```
 
+### Ingesting data
+
 #### Downloading test data
 
-`make load-local` will download the necessary data.
+`make load-local` will download the necessary data. Make sure you environment variable `AWS_DEFAULT_PROFILE`
+is set to the correct profile.
 
 #### Using Docker in the VM
 
