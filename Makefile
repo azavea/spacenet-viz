@@ -18,15 +18,16 @@ endif
 
 rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d))
 
-upload-code: ${RVVIZ_INGEST_ASSEMBLY} ${RVVIZ_SERVER_ASSEMBLY} deployment/emr/*
-	@aws s3 cp ${RVVIZ_INGEST_ASSEMBLY} ${S3_URI}/
+upload-code: deployment/emr/bootstrap-geopyspark.sh
+	@aws s3 cp deployment/emr/bootstrap-geopyspark.sh ${S3_URI}/
+	@aws s3 cp src/ingest/ingest.py ${S3_URI}/
 
 load-local:
 	scripts/load_development_data.sh
 
 create-cluster:
 	aws emr create-cluster --name "${NAME}" ${COLOR_TAG} \
---release-label emr-5.4.0 \
+--release-label emr-5.6.0 \
 --output text \
 --use-default-roles \
 --configurations "file://$(CURDIR)/deployment/emr/configurations.json" \
@@ -36,7 +37,21 @@ create-cluster:
 --instance-groups \
 'Name=Master,${MASTER_BID_PRICE}InstanceCount=1,InstanceGroupType=MASTER,InstanceType=${MASTER_INSTANCE}' \
 'Name=Workers,${WORKER_BID_PRICE}InstanceCount=${WORKER_COUNT},InstanceGroupType=CORE,InstanceType=${WORKER_INSTANCE}' \
+--bootstrap-actions Name=install-geopysaprk,Path=${S3_URI}/bootstrap-geopyspark.sh \
 | tee cluster-id-${EMR_TAG}.txt
+
+ingest-paris:
+	spark-submit --name "SpaceNet Ingest: Paris ${NAME}" \
+		--master "local[4]" --driver-memory 4G --class rastervision.viz.ingest.Ingest \
+		--conf spark.driver.extraJavaOptions="-Djava.library.path=/usr/local/lib" \
+		--conf spark.executor.extraJavaOptions="-Djava.library.path=/usr/local/lib" \
+		--jars $(shell geopyspark jar-path -a) \
+		${S3_URI}/ingest.py \
+		--input ${LOCAL_PARIS_PATH} \
+		--catalog ${S3_CATALOG} \
+		--name "spacenet-paris-imagery" \
+		--partitions 5000
+
 
 ingest-dsm:
 	aws emr add-steps --output text --cluster-id ${CLUSTER_ID} \
