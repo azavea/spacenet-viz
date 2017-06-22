@@ -79,7 +79,6 @@ cluster-id*.txt
 last-step-id.txt
 
 scripts/upsert.json
-config-aws.mk
 logs
 
 # Local files #
@@ -89,3 +88,5 @@ viewer2
 src/app-frontend/sass-bak/
 
 data/*
+
+venv/*

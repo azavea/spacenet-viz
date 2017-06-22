@@ -8,15 +8,9 @@ export EXECUTOR_COUNT := 80
 export PARTITION_COUNT := 20000
 
 # export LOCAL_CATALOG := file://${PWD}/data/catalog-hadoop/
-export LOCAL_CATALOG := ${PWD}/data/catalog/
-export LOCAL_DSM_PATH := file://${PWD}/data/dsm.tif
-export LOCAL_DSMGT_PATH := file://${PWD}/data/dsm-gt.tif
-export LOCAL_DSMGTN_PATH := file://${PWD}/data/dsm-gtn.tif
-export LOCAL_RGBIR_PATH := file://${PWD}/data/rgbir.tif
-export LOCAL_LABEL_PATH := file://${PWD}/data/label.tif
-export LOCAL_FCN_PATH := file://${PWD}/data/fcn.tif
-export LOCAL_UNET_PATH := file://${PWD}/data/unet.tif
-export LOCAL_FCNDSM_PATH := file://${PWD}/data/fcn-dsm.tif
+export LOCAL_INGEST_SCRIPT_PATH := ${PWD}/src/ingest/ingest.py
+export LOCAL_CATALOG := file://${PWD}/data/catalog/
+export LOCAL_PARIS_PATH := file://${PWD}/data/
 
 export S3_CATALOG := s3://otid-data/viz/catalog
 export INPUT_DSM := s3://otid-data/input/1_DSM_normalisation_geotiff-with-geo/

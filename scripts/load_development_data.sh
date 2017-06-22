@@ -36,29 +36,20 @@ then
         usage
     else
         download_if_not_exits \
-            "s3://otid-data/input/1_DSM_normalisation_geotiff-with-geo/dsm_potsdam_02_10_normalized_lastools-geo.tif" \
-            "dsm.tif"
+            "s3://raster-vision/datasets/spacenet/AOI_3_Paris/AOI_3_Paris_Train/MUL/MUL_AOI_3_Paris_img3.tif" \
+            "paris3.tif"
         download_if_not_exits \
-            "s3://otid-data/input/geotrellis_generated_dsm/dsm_potsdam_02_10.tff" \
-            "dsm-gt.tif"
+            "s3://raster-vision/datasets/spacenet/AOI_3_Paris/AOI_3_Paris_Train/MUL/MUL_AOI_3_Paris_img4.tif" \
+            "paris4.tif"
         download_if_not_exits \
-            "s3://otid-data/input/geotrellis_generated_dsm_normalized/normalized-dsm_potsdam_02_10.tif" \
-            "dsm-gtn.tif"
+            "s3://raster-vision/datasets/spacenet/AOI_3_Paris/AOI_3_Paris_Train/MUL/MUL_AOI_3_Paris_img5.tif" \
+            "paris5.tif"
         download_if_not_exits \
-            "s3://otid-data/input/4_Ortho_RGBIR_geotiff/top_potsdam_2_10_RGBIR.tif" \
-            "rgbir.tif"
+            "s3://raster-vision/datasets/spacenet/AOI_3_Paris/AOI_3_Paris_Train/MUL/MUL_AOI_3_Paris_img6.tif" \
+            "paris6.tif"
         download_if_not_exits \
-            "s3://otid-data/input/5_Labels_for_participants_geotiff/top_potsdam_2_10_label.tif" \
-            "label.tif"
-        download_if_not_exits \
-            "s3://otid-data/input/viz/fcn_results_4_7_17/top_potsdam_2_10_label-geo.tif" \
-            "fcn.tif"
-        download_if_not_exits \
-            "s3://otid-data/input/viz/unet_results_4_7_17/top_potsdam_2_10_label-geo.tif" \
-            "unet.tif"
-        download_if_not_exits \
-            "s3://otid-data/input/viz/fcn_results_irrgdsm_5_20_17/top_potsdam_2_10_label.tif" \
-            "fcn-dsm.tif"
+            "s3://raster-vision/datasets/spacenet/AOI_3_Paris/AOI_3_Paris_Train/MUL/MUL_AOI_3_Paris_img8.tif" \
+            "paris8.tif"
     fi
     exit
 fi
