@@ -7,4 +7,5 @@ sudo touch /usr/local/lib/python3.4/site-packages/geopyspark/command/geopyspark.
 sudo chmod 777 /usr/local/lib/python3.4/site-packages/geopyspark/command/geopyspark.conf
 sudo touch /usr/local/lib/python3.4/site-packages/geopyspark/jars/geotrellis-backend-assembly-0.1.0.jar
 sudo chmod 777 /usr/local/lib/python3.4/site-packages/geopyspark/jars/geotrellis-backend-assembly-0.1.0.jar
-# geopyspark install-jar
+export PYTHONPATH=/usr/local/lib/python3.4/site-packages
+geopyspark install-jar
