@@ -8,9 +8,9 @@ fi
 
 function usage() {
     echo -n \
-"Usage: $(basename "$0") s3://dest_s3_path
+"Usage: $(basename "$0") dest/s3/path
 
-Syncs Rio data from s3://spacenet-data to dest_s3_path, for EMR ingest.
+Syncs Rio data from s3://spacenet-data to s3://dest/s3/path (no s3:// or trailing slash).
 "
 }
 
@@ -37,7 +37,7 @@ function download_rio() {
     echo "==> Deleting local zip files before copying local Rio data to s3"
     find . -name "*.tar.gz" -type f -delete
     echo "==> Copying Rio data to your s3 bucket"
-    aws s3 cp AOI_1_Rio/ s3://raster-vision/datasets/spacenet/AOI_1_Rio/ --recursive --exclude ".*"
+    aws s3 cp AOI_1_Rio/ s3://$1/AOI_1_Rio/ --recursive --exclude ".*"
     echo "==> Removing Rio data locally"
     rm -rf AOI_1_Rio
 }

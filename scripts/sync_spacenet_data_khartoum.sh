@@ -8,9 +8,9 @@ fi
 
 function usage() {
     echo -n \
-"Usage: $(basename "$0") dest_s3_path
+"Usage: $(basename "$0") dest/s3/path
 
-Syncs Rio data from s3://spacenet-data to dest_s3_path, for EMR ingest.
+Syncs Khartoum data from s3://spacenet-data to s3://dest/s3/path (no s3:// or trailing slash).
 "
 }
 
@@ -26,7 +26,7 @@ function download_khartoum() {
     echo "==> Deleting local zip files before copying local Khartoum data to s3"
     find . -name "*.tar.gz" -type f -delete
     echo "==> Copying Khartoum data to your s3 bucket"
-    aws s3 cp AOI_5_Khartoum/ s3://$1 --recursive --exclude ".*"
+    aws s3 cp AOI_5_Khartoum/ s3://$1/AOI_5_Khartoum/ --recursive --exclude ".*"
     echo "==> Removing Khartoum data locally"
     rm -rf AOI_5_Khartoum
 }
