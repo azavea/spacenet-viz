@@ -22,7 +22,7 @@ function download_paris() {
     echo "==> Getting Paris data from s3://spacenet-dataset locally"
     aws s3api get-object --bucket spacenet-dataset --key AOI_3_Paris/AOI_3_Paris_Train.tar.gz --request-payer requester AOI_3_Paris/AOI_3_Paris_Train.tar.gz
     echo "==> Unzipping Paris data locally"
-    tar -xzf AOI_3_Paris/AOI_3_Paris_Train.tar.gz
+    tar -xzf AOI_3_Paris/AOI_3_Paris_Train.tar.gz --directory AOI_3_Paris/
     echo "==> Deleting local zip files before copying local Paris data to s3"
     find . -name "*.tar.gz" -type f -delete
     echo "==> Copying Paris data to your s3 bucket"

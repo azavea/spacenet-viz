@@ -22,7 +22,7 @@ function download_vegas() {
     echo "==> Getting Vegas data from s3://spacenet-dataset locally"
     aws s3api get-object --bucket spacenet-dataset --key AOI_2_Vegas/AOI_2_Vegas_Train.tar.gz --request-payer requester AOI_2_Vegas/AOI_2_Vegas_Train.tar.gz
     echo "==> Unzipping Vegas data locally"
-    tar -xzf AOI_2_Vegas/AOI_2_Vegas_Train.tar.gz
+    tar -xzf AOI_2_Vegas/AOI_2_Vegas_Train.tar.gz --directory AOI_2_Vegas/
     echo "==> Deleting local zip files before copying local Vegas data data to s3"
     find . -name "*.tar.gz" -type f -delete
     echo "==> Copying Vegas data to your s3 bucket"
