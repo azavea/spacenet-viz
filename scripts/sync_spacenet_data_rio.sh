@@ -26,14 +26,14 @@ function download_rio() {
     aws s3api get-object --bucket spacenet-dataset --key AOI_1_Rio/srcData/rasterData/8-Band.tar.gz --request-payer requester AOI_1_Rio/srcData/rasterData/8-Band.tar.gz
     aws s3api get-object --bucket spacenet-dataset --key AOI_1_Rio/srcData/vectorData/Rio_BuildingLabels.tar.gz --request-payer requester AOI_1_Rio/srcData/vectorData/Rio_BuildingLabels.tar.gz
     echo "==> Unzipping Paris data locally"
-    tar -xzf AOI_1_Rio/processedData/processedBuildingLabels.tar.gz
-    tar -xzf AOI_1_Rio/srcData/rasterData/3-Band.tar.gz
-    tar -xzf AOI_1_Rio/srcData/rasterData/8-Band.tar.gz
-    tar -xzf AOI_1_Rio/srcData/vectorData/Rio_BuildingLabels.tar.gz
-    tar -xzf AOI_1_Rio/processedData/processedBuildingLabels/3band.tar.gz
-    tar -xzf AOI_1_Rio/processedData/processedBuildingLabels/8band.tar.gz
-    tar -xzf AOI_1_Rio/processedData/processedBuildingLabels/vectordata/geojson.tar.gz
-    tar -xzf AOI_1_Rio/processedData/processedBuildingLabels/vectordata/summarydata.tar.gz
+    tar -xzf AOI_1_Rio/processedData/processedBuildingLabels.tar.gz --directory AOI_1_Rio/processedData/
+    tar -xzf AOI_1_Rio/srcData/rasterData/3-Band.tar.gz --directory AOI_1_Rio/srcData/rasterData/
+    tar -xzf AOI_1_Rio/srcData/rasterData/8-Band.tar.gz --directory AOI_1_Rio/srcData/rasterData/
+    tar -xzf AOI_1_Rio/srcData/vectorData/Rio_BuildingLabels.tar.gz --directory AOI_1_Rio/srcData/vectorData/
+    tar -xzf AOI_1_Rio/processedData/processedBuildingLabels/3band.tar.gz --directory AOI_1_Rio/processedData/processedBuildingLabels/
+    tar -xzf AOI_1_Rio/processedData/processedBuildingLabels/8band.tar.gz --directory AOI_1_Rio/processedData/processedBuildingLabels/
+    tar -xzf AOI_1_Rio/processedData/processedBuildingLabels/vectordata/geojson.tar.gz --directory AOI_1_Rio/processedData/processedBuildingLabels/vectordata/
+    tar -xzf AOI_1_Rio/processedData/processedBuildingLabels/vectordata/summarydata.tar.gz --directory AOI_1_Rio/processedData/processedBuildingLabels/vectordata/
     echo "==> Deleting local zip files before copying local Rio data to s3"
     find . -name "*.tar.gz" -type f -delete
     echo "==> Copying Rio data to your s3 bucket"
