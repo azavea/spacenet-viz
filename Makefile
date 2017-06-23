@@ -45,8 +45,8 @@ ingest-paris:
 --steps Type=CUSTOM_JAR,Name="SpaceNet Ingest: Paris ${NAME}",Jar=command-runner.jar,Args=[\
 spark-submit,--master,yarn-cluster,\
 --class,rastervision.viz.ingest.Ingest,\
---driver-memory,${DRIVER_MEMORY},\
---driver-cores,${DRIVER_CORES},\
+--driver-memory,${EXECUTOR_MEMORY},\
+--driver-cores,${EXECUTOR_CORES},\
 --executor-memory,${EXECUTOR_MEMORY},\
 --executor-cores,${EXECUTOR_CORES},\
 --conf,spark.driver.maxResultSize=4g,\
