@@ -37,21 +37,27 @@ create-cluster:
 --instance-groups \
 'Name=Master,${MASTER_BID_PRICE}InstanceCount=1,InstanceGroupType=MASTER,InstanceType=${MASTER_INSTANCE}' \
 'Name=Workers,${WORKER_BID_PRICE}InstanceCount=${WORKER_COUNT},InstanceGroupType=CORE,InstanceType=${WORKER_INSTANCE}' \
---bootstrap-actions Name=install-geopysaprk,Path=${S3_URI}/bootstrap-geopyspark.sh \
+--bootstrap-actions Name=install-geopyspark,Path=${S3_URI}/bootstrap-geopyspark.sh \
 | tee cluster-id-${EMR_TAG}.txt
 
 ingest-paris:
-	spark-submit --name "SpaceNet Ingest: Paris ${NAME}" \
-		--master "local[4]" --driver-memory 4G --class rastervision.viz.ingest.Ingest \
-		--conf spark.driver.extraJavaOptions="-Djava.library.path=/usr/local/lib" \
-		--conf spark.executor.extraJavaOptions="-Djava.library.path=/usr/local/lib" \
-		--jars $(shell geopyspark jar-path -a) \
-		${S3_URI}/ingest.py \
-		--input ${LOCAL_PARIS_PATH} \
-		--catalog ${S3_CATALOG} \
-		--name "spacenet-paris-imagery" \
-		--partitions 5000
-
+	aws emr add-steps --output text --cluster-id ${CLUSTER_ID} \
+--steps Type=CUSTOM_JAR,Name="SpaceNet Ingest: Paris ${NAME}",Jar=command-runner.jar,Args=[\
+spark-submit,--master,yarn-cluster,\
+--class,rastervision.viz.ingest.Ingest,\
+--driver-memory,${DRIVER_MEMORY},\
+--driver-cores,${DRIVER_CORES},\
+--executor-memory,${EXECUTOR_MEMORY},\
+--executor-cores,${EXECUTOR_CORES},\
+--conf,spark.driver.maxResultSize=4g,\
+--conf,spark.dynamicAllocation.enabled=true,\
+--jars,"/usr/local/lib/python3.4/site-packages/geopyspark/jars/geotrellis-backend-assembly-0.1.0.jar",\
+${S3_URI}/ingest.py,\
+--input,${INPUT_PARIS},\
+--catalog,${S3_CATALOG},\
+--name,"spacenet-paris-imagery",\
+--partitions,5000\
+] | cut -f2 | tee last-step-id.txt
 
 ingest-dsm:
 	aws emr add-steps --output text --cluster-id ${CLUSTER_ID} \
