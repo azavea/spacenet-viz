@@ -12,5 +12,5 @@ export LOCAL_INGEST_SCRIPT_PATH := ${PWD}/src/ingest/ingest.py
 export LOCAL_CATALOG := file://${PWD}/data/catalog/
 export LOCAL_PARIS_PATH := file://${PWD}/data/
 
-export S3_CATALOG := s3://otid-data/viz/catalog
+export S3_CATALOG := s3://azavea-research-emr/spacenet-viz/ingest/yoni/catalog
 export INPUT_PARIS := s3://raster-vision/datasets/spacenet/AOI_3_Paris/AOI_3_Paris_Train/MUL-PanSharpen/
