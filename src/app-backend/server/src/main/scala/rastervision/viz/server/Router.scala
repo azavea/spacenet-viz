@@ -1056,7 +1056,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                   tileOpt.map { tile =>
                     val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
                     val ndvi =
-                      masked.delayedConversion(DoubleConstantNoDataCellType).combineDouble(0, 1) { (r, ir) =>
+                      masked.delayedConversion(DoubleConstantNoDataCellType).combineDouble(4, 6) { (r, ir) =>
                         (ir - r) / (ir + r)
                       }
                     val bytes = ndvi.renderPng(ndviColorBreaks).bytes
