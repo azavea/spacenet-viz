@@ -38,6 +38,13 @@ const initAppPage = {
         irrgChecked: false,
         grayscaleChecked: false,
         ndviChecked: false,
+        vegetationChecked: false,
+        shadowChecked: false,
+        cementChecked: false,
+        sedimentationChecked: false,
+        mudFlatsChecked: false,
+        redRoofsChecked: false,
+        waterDepthChecked: false,
         opacity: 1.0
       },
       dsm: {
@@ -203,6 +210,13 @@ export default function appPage(state = initAppPage, action) {
             var irrgChecked = action.payload == "IRRG";
             var ndviChecked = action.payload == "NDVI";
             var grayscaleChecked = action.payload == "GRAYSCALE";
+            var vegetationChecked = action.payload == "VEGETATION";
+            var shadowChecked = action.payload == "SHADOW";
+            var cementChecked = action.payload == "CEMENT";
+            var sedimentationChecked = action.payload == "SEDIMENTATION";
+            var mudFlatsChecked = action.payload == "MUDFLATS";
+            var redRoofsChecked = action.payload == "REDROOFS";
+            var waterDepthChecked = action.payload == "WATERDEPTH";
 
             newState = immutable.set(newState,
                                      'singleLayer.imagery.rgbChecked',
@@ -216,6 +230,28 @@ export default function appPage(state = initAppPage, action) {
             newState = immutable.set(newState,
                                      'singleLayer.imagery.grayscaleChecked',
                                      grayscaleChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.vegetationChecked',
+                                     vegetationChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.shadowChecked',
+                                     shadowChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.cementChecked',
+                                     cementChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.sedimentationChecked',
+                                     sedimentationChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.mudFlatsChecked',
+                                     mudFlatsChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.redRoofsChecked',
+                                     redRoofsChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.waterDepthChecked',
+                                     waterDepthChecked);
+
             return newState;
         case SET_IMAGERY_OPACITY:
             return immutable.set(newState,
