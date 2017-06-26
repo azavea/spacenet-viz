@@ -1008,7 +1008,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       Some(
                         getMultibandTile(layerId, key)
                           .delayedConversion(IntCellType)
-                          .combine(0, 1, 2) { (r, g, b) =>
+                          .combine(4, 2, 1) { (r, g, b) =>
                           val v = (0.2989 * r.toDouble + 0.5870 * g.toDouble + 0.1140 * b.toDouble).toInt & 0xFF
 
                             if(v == 0) 0
