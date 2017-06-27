@@ -628,12 +628,20 @@ hues.'
                             onClick={this.checkUrban}
                             text="URBAN"
                             className={this.isActive(imagery.urbanChecked)}
+                            title="875	Urban
+                            # 8. Near-IR2: 860 - 1040 nm
+                            # 7. Near-IR1: 770 - 895 nm
+                            # 5. Red:      630 - 690 nm"
                         />
                         <Button
                             active={imagery.blackwaterChecked}
                             onClick={this.checkBlackwater}
                             text="BLACKWATER"
                             className={this.isActive(imagery.blackwaterChecked)}
+                            title="781	Blackwater
+                            # 7. Near-IR1: 770 - 895 nm
+                            # 8. Near-IR2: 860 - 1040 nm
+                            # 1. Coastal:  400 - 450 nm"
                         />
                     </div>
                     <div className="pt-button-group pt-fill">
@@ -642,12 +650,16 @@ hues.'
                             onClick={this.checkIR1}
                             text="IR1"
                             className={this.isActive(imagery.ir1Checked)}
+                            title="777	Infra red 1
+                            # 7. Near-IR1: 770 - 895 nm"
                         />
                         <Button
                             active={imagery.ir2Checked}
                             onClick={this.checkIR2}
                             text="IR2"
                             className={this.isActive(imagery.ir2Checked)}
+                            title="888	Infra red 2
+                            # 8. Near-IR2: 860 - 1040 nm"
                         />
                         <Button
                             active={!(imagery.urbanChecked || imagery.blackwaterChecked || imagery.ir1Checked || imagery.ir2Checked)}
