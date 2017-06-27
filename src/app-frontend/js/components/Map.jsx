@@ -122,6 +122,17 @@ export default class Map extends Component {
                                  />]);
             }
 
+            if(singleLayer.imagery.irgbChecked) {
+                var irgbUrl = "tms/imagery/irgb/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="irgbLayer"
+                                 url={irgbUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                 />]);
+            }
+
             if(singleLayer.imagery.ndviChecked) {
                 var ndviUrl = "tms/imagery/ndvi/spacenet-paris-imagery/{z}/{x}/{y}"
                 layers.push([<TileLayer
