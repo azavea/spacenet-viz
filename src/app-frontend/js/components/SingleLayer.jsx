@@ -674,39 +674,41 @@ export default class SingleLayer extends Component {
                         />
                     </div>
                 </div>
-                {modelSections}
-                <div className="option-section">
-                    <label htmlFor="" className="primary">FCN vs UNET</label>
-                    <div className="pt-button-group pt-fill">
-                        <Button
-                            active={ab.checked}
-                            onClick={this.checkAb}
-                            text="ON"
-                            className={this.isActive(ab.checked)}
-                        />
-                        <Button
-                            active={!ab.checked}
-                            onClick={this.checkNoAb}
-                            text="OFF"
-                            className={this.isActive(!ab.checked)}
-                        />
-                    </div>
-                    <div className="slider-section">
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={ab.opacity}
-                            onChange={this.handleAbOpacityChange}
-                        />
-                    </div>
-                </div>
             </div>
         );
     }
 }
+
+// {modelSections}
+// <div className="option-section">
+//     <label htmlFor="" className="primary">FCN vs UNET</label>
+//     <div className="pt-button-group pt-fill">
+//         <Button
+//             active={ab.checked}
+//             onClick={this.checkAb}
+//             text="ON"
+//             className={this.isActive(ab.checked)}
+//         />
+//         <Button
+//             active={!ab.checked}
+//             onClick={this.checkNoAb}
+//             text="OFF"
+//             className={this.isActive(!ab.checked)}
+//         />
+//     </div>
+//     <div className="slider-section">
+//         <label htmlFor="" className="secondary">Opacity</label>
+//         <Slider
+//             min={0}
+//             max={1}
+//             stepSize={0.02}
+//             renderLabel={false}
+//             value={ab.opacity}
+//             onChange={this.handleAbOpacityChange}
+//         />
+//     </div>
+// </div>
+
 
 SingleLayer.propTypes = {
     dispatch: PropTypes.func.isRequired,
