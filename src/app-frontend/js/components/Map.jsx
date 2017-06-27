@@ -144,6 +144,85 @@ export default class Map extends Component {
                              />]);
             }
 
+            // Esri blog
+
+            if(singleLayer.imagery.vegetationChecked) {
+                var vegetationUrl = "tms/imagery/vegetation/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="vegetationLayer"
+                                 url={vegetationUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.shadowChecked) {
+                var shadowUrl = "tms/imagery/shadow/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="shadowLayer"
+                                 url={shadowUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.cementChecked) {
+                var cementUrl = "tms/imagery/cement/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="cementLayer"
+                                 url={cementUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.sedimentationChecked) {
+                var sedimentationUrl = "tms/imagery/sedimentation/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="sedimentationLayer"
+                                 url={sedimentationUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.mudFlatsChecked) {
+                var mudFlatsUrl = "tms/imagery/mudflats/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="mudFlatsLayer"
+                                 url={mudFlatsUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.redRoofsChecked) {
+                var redRoofsUrl = "tms/imagery/redroofs/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="redRoofsLayer"
+                                 url={redRoofsUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.waterDepthChecked) {
+                var waterDepthUrl = "tms/imagery/waterdepth/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="waterDepthLayer"
+                                 url={waterDepthUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
             // DSM
 
             if(singleLayer.dsm.colorRampChecked) {

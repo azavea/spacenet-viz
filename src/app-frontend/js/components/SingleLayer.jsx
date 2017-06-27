@@ -28,6 +28,13 @@ export default class SingleLayer extends Component {
         this.checkIrrg = this.checkIrrg.bind(this);
         this.checkGrayscale = this.checkGrayscale.bind(this);
         this.checkNdvi = this.checkNdvi.bind(this);
+        this.checkVegetation = this.checkVegetation.bind(this);
+        this.checkShadow = this.checkShadow.bind(this);
+        this.checkCement = this.checkCement.bind(this);
+        this.checkSedimentation = this.checkSedimentation.bind(this);
+        this.checkMudFlats = this.checkMudFlats.bind(this);
+        this.checkRedRoofs = this.checkRedRoofs.bind(this);
+        this.checkWaterDepth = this.checkWaterDepth.bind(this);
         this.checkNoImagery = this.checkNoImagery.bind(this);
         this.handleImageryOpacityChange = this.handleImageryOpacityChange.bind(this);
 
@@ -98,6 +105,41 @@ export default class SingleLayer extends Component {
     checkNdvi() {
         const { dispatch } = this.props;
         dispatch(setImageryType("NDVI"));
+    }
+
+    checkVegetation() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("VEGETATION"));
+    }
+
+    checkShadow() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("SHADOW"));
+    }
+
+    checkCement() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("CEMENT"));
+    }
+
+    checkSedimentation() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("SEDIMENTATION"));
+    }
+
+    checkMudFlats() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("MUDFLATS"));
+    }
+
+    checkRedRoofs() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("REDROOFS"));
+    }
+
+    checkWaterDepth() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("WATERDEPTH"));
     }
 
     checkNoImagery() {
@@ -462,18 +504,76 @@ export default class SingleLayer extends Component {
                             className={this.isActive(!(imagery.rgbChecked || imagery.irrgChecked || imagery.ndviChecked || imagery.grayscaleChecked))}
                         />
                     </div>
-                    <div className="slider-section">
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={imagery.opacity}
-                            onChange={this.handleImageryOpacityChange}
+                    <br></br>
+                    <label htmlFor="" className="primary"><a href="https://blogs.esri.com/esri/arcgis/2013/07/31/band-combinations-for-worldview-2/">Esri Blog</a> - Band combinations for Worldview 2</label>
+                    <div className="pt-button-group pt-fill">
+                        <Button
+                            active={imagery.vegetationChecked}
+                            onClick={this.checkVegetation}
+                            text="VEGETATION"
+                            className={this.isActive(imagery.vegetationChecked)}
+                        />
+                        <Button
+                            active={imagery.shadowChecked}
+                            onClick={this.checkShadow}
+                            text="SHADOW"
+                            className={this.isActive(imagery.shadowChecked)}
                         />
                     </div>
+                    <div className="pt-button-group pt-fill">
+                        <Button
+                            active={imagery.cementChecked}
+                            onClick={this.checkCement}
+                            text="CEMENT"
+                            className={this.isActive(imagery.cementChecked)}
+                        />
+                        <Button
+                            active={imagery.sedimentationChecked}
+                            onClick={this.checkSedimentation}
+                            text="SEDIMENTATION"
+                            className={this.isActive(imagery.sedimentationChecked)}
+                        />
+                    </div>
+                    <div className="pt-button-group pt-fill">
+                        <Button
+                            active={imagery.mudFlatsChecked}
+                            onClick={this.checkMudFlats}
+                            text="MUDFLATS"
+                            className={this.isActive(imagery.mudFlatsChecked)}
+                        />
+                        <Button
+                            active={imagery.redRoofsChecked}
+                            onClick={this.checkRedRoofs}
+                            text="REDROOFS"
+                            className={this.isActive(imagery.redRoofsChecked)}
+                        />
+                    </div>
+                    <div className="pt-button-group pt-fill">
+                            <Button
+                                active={imagery.waterDepthChecked}
+                                onClick={this.checkWaterDepth}
+                                text="WATERDEPTH"
+                                className={this.isActive(imagery.waterDepthChecked)}
+                            />
+                            <Button
+                                active={!(imagery.vegetationChecked || imagery.cementChecked || imagery.shadowChecked || imagery.cementChecked || imagery.sedimentationChecked || imagery.mudFlatsChecked || imagery.redRoofsChecked || imagery.waterDepthChecked)}
+                                onClick={this.checkNoImagery}
+                                text="OFF"
+                                className={this.isActive(!(imagery.vegetationChecked || imagery.cementChecked || imagery.shadowChecked || imagery.cementChecked || imagery.sedimentationChecked || imagery.mudFlatsChecked || imagery.redRoofsChecked || imagery.waterDepthChecked))}
+                            />
+                    </div>
+
+                  <label htmlFor="" className="secondary">Opacity</label>
+                          <Slider
+                              min={0}
+                              max={1}
+                              stepSize={0.02}
+                              renderLabel={false}
+                              value={imagery.opacity}
+                              onChange={this.handleImageryOpacityChange}
+                          />
                 </div>
+
                 <div className="option-section">
                     <label htmlFor="" className="primary">DSM</label>
                     <div className="pt-button-group pt-fill">
