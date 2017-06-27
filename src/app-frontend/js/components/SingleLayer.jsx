@@ -483,14 +483,14 @@ export default class SingleLayer extends Component {
                             text="IRRG"
                             className={this.isActive(imagery.irrgChecked)}
                         />
+                    </div>
+                    <div className="pt-button-group pt-fill">
                         <Button
                             active={imagery.ndviChecked}
                             onClick={this.checkNdvi}
                             text="NDVI"
                             className={this.isActive(imagery.ndviChecked)}
                         />
-                    </div>
-                    <div className="pt-button-group pt-fill">
                         <Button
                             active={imagery.grayscaleChecked}
                             onClick={this.checkGrayscale}
@@ -498,72 +498,82 @@ export default class SingleLayer extends Component {
                             className={this.isActive(imagery.grayscaleChecked)}
                         />
                         <Button
+                            active={!(imagery.rgbChecked || imagery.irrgChecked || imagery.ndviChecked || imagery.grayscaleChecked)}
+                            onClick={this.checkNoImagery}
+                            text="OFF"
+                            className={this.isActive(!(imagery.rgbChecked || imagery.irrgChecked || imagery.ndviChecked || imagery.grayscaleChecked))}
+                        />
+                    </div>
+                    <br></br>
+                    <label htmlFor="" className="primary"><a href="https://blogs.esri.com/esri/arcgis/2013/07/31/band-combinations-for-worldview-2/">Esri Blog</a> - Band combinations for Worldview 2</label>
+                    <div className="pt-button-group pt-fill">
+                        <Button
                             active={imagery.vegetationChecked}
                             onClick={this.checkVegetation}
                             text="VEGETATION"
                             className={this.isActive(imagery.vegetationChecked)}
                         />
-                    </div>
-                    <div className="pt-button-group pt-fill">
                         <Button
                             active={imagery.shadowChecked}
                             onClick={this.checkShadow}
                             text="SHADOW"
                             className={this.isActive(imagery.shadowChecked)}
                         />
+                    </div>
+                    <div className="pt-button-group pt-fill">
                         <Button
                             active={imagery.cementChecked}
                             onClick={this.checkCement}
                             text="CEMENT"
                             className={this.isActive(imagery.cementChecked)}
                         />
-                    </div>
-                    <div className="pt-button-group pt-fill">
                         <Button
                             active={imagery.sedimentationChecked}
                             onClick={this.checkSedimentation}
                             text="SEDIMENTATION"
                             className={this.isActive(imagery.sedimentationChecked)}
                         />
+                    </div>
+                    <div className="pt-button-group pt-fill">
                         <Button
                             active={imagery.mudFlatsChecked}
                             onClick={this.checkMudFlats}
                             text="MUDFLATS"
                             className={this.isActive(imagery.mudFlatsChecked)}
                         />
-                    </div>
-                    <div className="pt-button-group pt-fill">
                         <Button
                             active={imagery.redRoofsChecked}
                             onClick={this.checkRedRoofs}
                             text="REDROOFS"
                             className={this.isActive(imagery.redRoofsChecked)}
                         />
-                        <Button
-                            active={imagery.waterDepthChecked}
-                            onClick={this.checkWaterDepth}
-                            text="WATERDEPTH"
-                            className={this.isActive(imagery.waterDepthChecked)}
-                        />
                     </div>
                     <div className="pt-button-group pt-fill">
-                        <Button
-                            active={!(imagery.rgbChecked || imagery.irrgChecked || imagery.ndviChecked || imagery.grayscaleChecked || imagery.vegetationChecked || imagery.cementChecked || imagery.shadowChecked || imagery.cementChecked || imagery.sedimentationChecked || imagery.mudFlatsChecked || imagery.redRoofsChecked || imagery.waterDepthChecked)}
-                            onClick={this.checkNoImagery}
-                            text="OFF"
-                            className={this.isActive(!(imagery.rgbChecked || imagery.irrgChecked || imagery.ndviChecked || imagery.grayscaleChecked || imagery.vegetationChecked || imagery.cementChecked || imagery.shadowChecked || imagery.cementChecked || imagery.sedimentationChecked || imagery.mudFlatsChecked || imagery.redRoofsChecked || imagery.waterDepthChecked))}
-                        />
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={imagery.opacity}
-                            onChange={this.handleImageryOpacityChange}
-                        />
+                            <Button
+                                active={imagery.waterDepthChecked}
+                                onClick={this.checkWaterDepth}
+                                text="WATERDEPTH"
+                                className={this.isActive(imagery.waterDepthChecked)}
+                            />
+                            <Button
+                                active={!(imagery.vegetationChecked || imagery.cementChecked || imagery.shadowChecked || imagery.cementChecked || imagery.sedimentationChecked || imagery.mudFlatsChecked || imagery.redRoofsChecked || imagery.waterDepthChecked)}
+                                onClick={this.checkNoImagery}
+                                text="OFF"
+                                className={this.isActive(!(imagery.vegetationChecked || imagery.cementChecked || imagery.shadowChecked || imagery.cementChecked || imagery.sedimentationChecked || imagery.mudFlatsChecked || imagery.redRoofsChecked || imagery.waterDepthChecked))}
+                            />
                     </div>
+
+                  <label htmlFor="" className="secondary">Opacity</label>
+                          <Slider
+                              min={0}
+                              max={1}
+                              stepSize={0.02}
+                              renderLabel={false}
+                              value={imagery.opacity}
+                              onChange={this.handleImageryOpacityChange}
+                          />
                 </div>
+
                 <div className="option-section">
                     <label htmlFor="" className="primary">DSM</label>
                     <div className="pt-button-group pt-fill">
