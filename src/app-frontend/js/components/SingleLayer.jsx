@@ -647,74 +647,6 @@ export default class SingleLayer extends Component {
                 </div>
 
                 <div className="option-section">
-                    <label htmlFor="" className="primary">DSM</label>
-                    <div className="pt-button-group pt-fill">
-                        <Button
-                            active={dsm.hillshadeChecked}
-                            onClick={this.checkHillshade}
-                            text="Hillshade"
-                            className={this.isActive(dsm.hillshadeChecked)}
-                        />
-                        <Button
-                            active={dsm.colorRampChecked}
-                            onClick={this.checkColorRamp}
-                            text="Ramp"
-                            className={this.isActive(dsm.colorRampChecked)}
-                        />
-                        <Button
-                            active={!(dsm.colorRampChecked || dsm.hillshadeChecked)}
-                            onClick={this.checkNoDsm}
-                            text="OFF"
-                            className={this.isActive(!(dsm.colorRampChecked || dsm.hillshadeChecked))}
-                        />
-                    </div>
-                    <div className="slider-section">
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={dsm.opacity}
-                            onChange={this.handleDsmOpacityChange}
-                        />
-                    </div>
-                </div>
-                <div className="option-section">
-                    <label htmlFor="" className="primary">DSM - GeoTrellis Generated</label>
-                    <div className="pt-button-group pt-fill">
-                        <Button
-                            active={dsmGt.hillshadeChecked}
-                            onClick={this.checkGtHillshade}
-                            text="Hillshade"
-                            className={this.isActive(dsmGt.hillshadeChecked)}
-                        />
-                        <Button
-                            active={dsmGt.colorRampChecked}
-                            onClick={this.checkGtColorRamp}
-                            text="Ramp"
-                            className={this.isActive(dsmGt.colorRampChecked)}
-                        />
-                        <Button
-                            active={!(dsmGt.colorRampChecked || dsmGt.hillshadeChecked)}
-                            onClick={this.checkGtNoDsm}
-                            text="OFF"
-                            className={this.isActive(!(dsmGt.colorRampChecked || dsmGt.hillshadeChecked))}
-                        />
-                    </div>
-                    <div className="slider-section">
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={dsmGt.opacity}
-                            onChange={this.handleDsmGtOpacityChange}
-                        />
-                    </div>
-                </div>
-                <div className="option-section">
                     <label htmlFor="" className="primary">Labels</label>
                     <div className="pt-button-group pt-fill">
                         <Button
@@ -768,34 +700,6 @@ export default class SingleLayer extends Component {
                             renderLabel={false}
                             value={ab.opacity}
                             onChange={this.handleAbOpacityChange}
-                        />
-                    </div>
-                </div>
-                <div className="option-section">
-                    <label htmlFor="" className="primary">FCN vs FCN w/ DSM</label>
-                    <div className="pt-button-group pt-fill">
-                        <Button
-                            active={abDsm.checked}
-                            onClick={this.checkAbDsm}
-                            text="ON"
-                            className={this.isActive(abDsm.checked)}
-                        />
-                        <Button
-                            active={!abDsm.checked}
-                            onClick={this.checkNoAbDsm}
-                            text="OFF"
-                            className={this.isActive(!abDsm.checked)}
-                        />
-                    </div>
-                    <div className="slider-section">
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={abDsm.opacity}
-                            onChange={this.handleAbDsmOpacityChange}
                         />
                     </div>
                 </div>
