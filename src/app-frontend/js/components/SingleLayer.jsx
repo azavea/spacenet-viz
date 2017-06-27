@@ -36,6 +36,10 @@ export default class SingleLayer extends Component {
         this.checkMudFlats = this.checkMudFlats.bind(this);
         this.checkRedRoofs = this.checkRedRoofs.bind(this);
         this.checkWaterDepth = this.checkWaterDepth.bind(this);
+        this.checkUrban = this.checkUrban.bind(this);
+        this.checkBlackwater = this.checkBlackwater.bind(this);
+        this.checkIR1 = this.checkIR1.bind(this);
+        this.checkIR2 = this.checkIR2.bind(this);
         this.checkNoImagery = this.checkNoImagery.bind(this);
         this.handleImageryOpacityChange = this.handleImageryOpacityChange.bind(this);
 
@@ -146,6 +150,26 @@ export default class SingleLayer extends Component {
     checkWaterDepth() {
         const { dispatch } = this.props;
         dispatch(setImageryType("WATERDEPTH"));
+    }
+
+    checkUrban() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("URBAN"));
+    }
+
+    checkBlackwater() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("BLACKWATER"));
+    }
+
+    checkIR1() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("IR1"));
+    }
+
+    checkIR2() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("IR2"));
     }
 
     checkNoImagery() {
@@ -573,6 +597,42 @@ export default class SingleLayer extends Component {
                                 text="OFF"
                                 className={this.isActive(!(imagery.vegetationChecked || imagery.cementChecked || imagery.shadowChecked || imagery.cementChecked || imagery.sedimentationChecked || imagery.mudFlatsChecked || imagery.redRoofsChecked || imagery.waterDepthChecked))}
                             />
+                    </div>
+                    <br></br>
+                    <label htmlFor="" className="primary">SpaceNetChallenge's <a href="https://github.com/SpaceNetChallenge/BuildingDetectorVisualizer">BuildingDetectorVisualizer</a> - <a href="https://github.com/SpaceNetChallenge/BuildingDetectorVisualizer/blob/master/visualizer-1.1/data/band-triplets.txt">triplets</a></label>
+                    <div className="pt-button-group pt-fill">
+                        <Button
+                            active={imagery.urbanChecked}
+                            onClick={this.checkUrban}
+                            text="URBAN"
+                            className={this.isActive(imagery.urbanChecked)}
+                        />
+                        <Button
+                            active={imagery.blackwaterChecked}
+                            onClick={this.checkBlackwater}
+                            text="BLACKWATER"
+                            className={this.isActive(imagery.blackwaterChecked)}
+                        />
+                    </div>
+                    <div className="pt-button-group pt-fill">
+                        <Button
+                            active={imagery.ir1Checked}
+                            onClick={this.checkIR1}
+                            text="IR1"
+                            className={this.isActive(imagery.ir1Checked)}
+                        />
+                        <Button
+                            active={imagery.ir2Checked}
+                            onClick={this.checkIR2}
+                            text="IR2"
+                            className={this.isActive(imagery.ir2Checked)}
+                        />
+                        <Button
+                            active={!(imagery.urbanChecked || imagery.blackwaterChecked || imagery.ir1Checked || imagery.ir2Checked)}
+                            onClick={this.checkNoImagery}
+                            text="OFF"
+                            className={this.isActive(!(imagery.urbanChecked || imagery.blackwaterChecked || imagery.ir1Checked || imagery.ir2Checked))}
+                        />
                     </div>
 
                   <label htmlFor="" className="secondary">Opacity</label>

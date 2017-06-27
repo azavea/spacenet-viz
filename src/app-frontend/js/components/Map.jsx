@@ -234,6 +234,52 @@ export default class Map extends Component {
                                 />]);
             }
 
+            // BuildingDetectorVisualizer
+
+            if(singleLayer.imagery.urbanChecked) {
+                var urbanUrl = "tms/imagery/urban/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="urbanLayer"
+                                 url={urbanUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.blackwaterChecked) {
+                var blackwaterUrl = "tms/imagery/blackwater/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="blackwaterLayer"
+                                 url={blackwaterUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.ir1Checked) {
+                var ir1Url = "tms/imagery/ir1/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="ir1Layer"
+                                 url={ir1Url}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.ir2Checked) {
+                var ir2Url = "tms/imagery/ir2/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="ir2Layer"
+                                 url={ir2Url}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
             // DSM
 
             if(singleLayer.dsm.colorRampChecked) {
