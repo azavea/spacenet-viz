@@ -965,7 +965,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // }
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1017,7 +1017,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // }
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1069,7 +1069,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // }
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1116,7 +1116,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1163,7 +1163,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1210,7 +1210,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1257,7 +1257,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1304,7 +1304,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1351,7 +1351,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1398,7 +1398,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1445,7 +1445,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1492,7 +1492,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1539,7 +1539,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -1584,7 +1584,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = (1000, 2000)
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 

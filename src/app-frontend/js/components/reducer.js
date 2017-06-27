@@ -30,7 +30,7 @@ import {
 
 const initAppPage = {
     activeTab: 0,
-    zoom: 15,
+    zoom: 17,
     singleLayer: {
       active: true,
       imagery: {
