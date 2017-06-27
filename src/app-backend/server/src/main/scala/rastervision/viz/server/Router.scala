@@ -965,17 +965,13 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // }
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = t.findMinMax
+                        val (min, max) = (1000, 2000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
                       val red = convertTile(tile.band(4))
                       val green = convertTile(tile.band(2))
                       val blue = convertTile(tile.band(1))
-
-                      // val red = tile.band(4).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
-                      // val green = tile.band(2).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
-                      // val blue = tile.band(1).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
 
                       (red, green, blue)
                     }
