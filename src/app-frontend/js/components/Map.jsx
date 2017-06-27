@@ -112,7 +112,7 @@ export default class Map extends Component {
             }
 
             if(singleLayer.imagery.irrgChecked) {
-                var irrgUrl = "tms/imagery/rgb/isprs-potsdam-imagery-irrg/{z}/{x}/{y}"
+                var irrgUrl = "tms/imagery/irrg/spacenet-paris-imagery/{z}/{x}/{y}"
                 layers.push([<TileLayer
                                  key="irrgLayer"
                                  url={irrgUrl}

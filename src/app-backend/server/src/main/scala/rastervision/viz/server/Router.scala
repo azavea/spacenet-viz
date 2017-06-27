@@ -983,6 +983,58 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
             }
           }
         } ~
+        pathPrefix("irrg") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (nir1, r, g) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      // def clamp(z: Int) = {
+                      //   if(isData(z)) { if(z > max) { max } else if(z < min) { min } else { z } }
+                      //   else { z }
+                      // }
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (1000, 2000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val nir1 = convertTile(tile.band(6))
+                      val r = convertTile(tile.band(4))
+                      val g = convertTile(tile.band(2))
+
+                      (nir1, r, g)
+                    }
+                    val bytes = MultibandTile(nir1, r, g).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
         pathPrefix("vegetation") {
           pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
             parameters(
