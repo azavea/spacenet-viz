@@ -26,6 +26,7 @@ export default class SingleLayer extends Component {
 
         this.checkRgb = this.checkRgb.bind(this);
         this.checkIrrg = this.checkIrrg.bind(this);
+        this.checkIrgb = this.checkIrgb.bind(this);
         this.checkGrayscale = this.checkGrayscale.bind(this);
         this.checkNdvi = this.checkNdvi.bind(this);
         this.checkVegetation = this.checkVegetation.bind(this);
@@ -95,6 +96,11 @@ export default class SingleLayer extends Component {
     checkIrrg() {
         const { dispatch } = this.props;
         dispatch(setImageryType("IRRG"));
+    }
+
+    checkIrgb() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("IRGB"));
     }
 
     checkGrayscale() {
@@ -483,6 +489,12 @@ export default class SingleLayer extends Component {
                             text="IRRG"
                             className={this.isActive(imagery.irrgChecked)}
                         />
+                        <Button
+                            active={imagery.irgbChecked}
+                            onClick={this.checkIrgb}
+                            text="IRGB"
+                            className={this.isActive(imagery.irgbChecked)}
+                        />
                     </div>
                     <div className="pt-button-group pt-fill">
                         <Button
@@ -498,14 +510,14 @@ export default class SingleLayer extends Component {
                             className={this.isActive(imagery.grayscaleChecked)}
                         />
                         <Button
-                            active={!(imagery.rgbChecked || imagery.irrgChecked || imagery.ndviChecked || imagery.grayscaleChecked)}
+                            active={!(imagery.rgbChecked || imagery.irrgChecked || imagery.irgbChecked || imagery.ndviChecked || imagery.grayscaleChecked)}
                             onClick={this.checkNoImagery}
                             text="OFF"
-                            className={this.isActive(!(imagery.rgbChecked || imagery.irrgChecked || imagery.ndviChecked || imagery.grayscaleChecked))}
+                            className={this.isActive(!(imagery.rgbChecked || imagery.irrgChecked || imagery.irgbChecked || imagery.ndviChecked || imagery.grayscaleChecked))}
                         />
                     </div>
                     <br></br>
-                    <label htmlFor="" className="primary"><a href="https://blogs.esri.com/esri/arcgis/2013/07/31/band-combinations-for-worldview-2/">Esri Blog</a> - Band combinations for Worldview 2</label>
+                    <label htmlFor="" className="primary"><a href="https://blogs.esri.com/esri/arcgis/2013/07/31/band-combinations-for-worldview-2/">Esri Blog</a> - Combos for Worldview 2 (see <a href="http://content.satimagingcorp.com/media/pdf/WorldView-2_8-Band_Applications_Whitepaper.pdf">Digital Globe Whitepaper</a>)</label>
                     <div className="pt-button-group pt-fill">
                         <Button
                             active={imagery.vegetationChecked}

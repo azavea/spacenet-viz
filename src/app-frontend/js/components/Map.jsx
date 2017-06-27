@@ -112,10 +112,21 @@ export default class Map extends Component {
             }
 
             if(singleLayer.imagery.irrgChecked) {
-                var irrgUrl = "tms/imagery/rgb/isprs-potsdam-imagery-irrg/{z}/{x}/{y}"
+                var irrgUrl = "tms/imagery/irrg/spacenet-paris-imagery/{z}/{x}/{y}"
                 layers.push([<TileLayer
                                  key="irrgLayer"
                                  url={irrgUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                 />]);
+            }
+
+            if(singleLayer.imagery.irgbChecked) {
+                var irgbUrl = "tms/imagery/irgb/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="irgbLayer"
+                                 url={irgbUrl}
                                  opacity={singleLayer.imagery.opacity}
                                  maxZoom={22}
                                  zIndex={0}

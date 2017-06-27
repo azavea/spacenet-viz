@@ -36,6 +36,7 @@ const initAppPage = {
       imagery: {
         rgbChecked: true,
         irrgChecked: false,
+        irgbChecked: false,
         grayscaleChecked: false,
         ndviChecked: false,
         vegetationChecked: false,
@@ -208,6 +209,7 @@ export default function appPage(state = initAppPage, action) {
             // May be "NONE"
             var rgbChecked = action.payload == "RGB";
             var irrgChecked = action.payload == "IRRG";
+            var irgbChecked = action.payload == "IRGB";
             var ndviChecked = action.payload == "NDVI";
             var grayscaleChecked = action.payload == "GRAYSCALE";
             var vegetationChecked = action.payload == "VEGETATION";
@@ -224,6 +226,9 @@ export default function appPage(state = initAppPage, action) {
             newState = immutable.set(newState,
                                      'singleLayer.imagery.irrgChecked',
                                      irrgChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.irgbChecked',
+                                     irgbChecked);
             newState = immutable.set(newState,
                                      'singleLayer.imagery.ndviChecked',
                                      ndviChecked);
