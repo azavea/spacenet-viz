@@ -505,7 +505,7 @@ export default class SingleLayer extends Component {
                         />
                     </div>
                     <br></br>
-                    <label htmlFor="" className="primary"><a href="https://blogs.esri.com/esri/arcgis/2013/07/31/band-combinations-for-worldview-2/">Esri Blog</a> - Band combinations for Worldview 2</label>
+                    <label htmlFor="" className="primary"><a href="https://blogs.esri.com/esri/arcgis/2013/07/31/band-combinations-for-worldview-2/">Esri Blog</a> - Combos for Worldview 2 (see <a href="http://content.satimagingcorp.com/media/pdf/WorldView-2_8-Band_Applications_Whitepaper.pdf">Digital Globe Whitepaper</a>)</label>
                     <div className="pt-button-group pt-fill">
                         <Button
                             active={imagery.vegetationChecked}
