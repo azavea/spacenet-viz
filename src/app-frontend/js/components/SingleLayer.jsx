@@ -506,18 +506,33 @@ export default class SingleLayer extends Component {
                             onClick={this.checkRgb}
                             text="RGB"
                             className={this.isActive(imagery.rgbChecked)}
+                            title='5,3,2 (Red,Green,Blue)
+The "natural color" band combination. Because the visible bands are used in this combination, ground features appear
+in colors similar to their appearance to the human visual system, healthy vegetation is green, recently cleared fields are
+very light, unhealthy vegetation is brown and yellow, roads are gray, and shorelines are white.'
                         />
                         <Button
                             active={imagery.irrgChecked}
                             onClick={this.checkIrrg}
                             text="IRRG"
                             className={this.isActive(imagery.irrgChecked)}
+                            title='7,5,3 (NIR1,Red,Green)
+The standard "false color" composite. Vegetation appears in shades of red, urban areas are cyan blue, and soils vary
+from dark to light browns. Ice, snow and clouds are white or light cyan. Coniferous trees will appear darker red than
+hardwoods. This is a very popular band combination and is useful for vegetation studies, monitoring drainage and soil
+patterns and various stages of crop growth. Densely populated urban areas are shown in light blue. This band
+combination gives results similar to traditional color infrared aerial photography.'
                         />
                         <Button
                             active={imagery.irgbChecked}
                             onClick={this.checkIrgb}
                             text="IRGB"
                             className={this.isActive(imagery.irgbChecked)}
+                            title='7,3,2 (NIR1,Green,Blue)
+Modified “false color” composite band combination. Generally, this band combination differentiates conifer-deciduousgrassy
+vegetation with a broader hue change than the standard false color composite band combination. Conifers
+appear dark-red, deciduous tend to be represented in brighter-reds while grassy areas tend to show up with orange-red
+hues.'
                         />
                     </div>
                     <div className="pt-button-group pt-fill">
