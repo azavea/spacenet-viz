@@ -46,6 +46,10 @@ const initAppPage = {
         mudFlatsChecked: false,
         redRoofsChecked: false,
         waterDepthChecked: false,
+        urbanChecked: false,
+        blackwaterChecked: false,
+        ir1Checked: false,
+        ir2Checked: false,
         opacity: 1.0
       },
       dsm: {
@@ -219,6 +223,10 @@ export default function appPage(state = initAppPage, action) {
             var mudFlatsChecked = action.payload == "MUDFLATS";
             var redRoofsChecked = action.payload == "REDROOFS";
             var waterDepthChecked = action.payload == "WATERDEPTH";
+            var urbanChecked = action.payload == "URBAN";
+            var blackwaterChecked = action.payload == "BLACKWATER";
+            var ir1Checked = action.payload == "IR1";
+            var ir2Checked = action.payload == "IR2";
 
             newState = immutable.set(newState,
                                      'singleLayer.imagery.rgbChecked',
@@ -256,6 +264,18 @@ export default function appPage(state = initAppPage, action) {
             newState = immutable.set(newState,
                                      'singleLayer.imagery.waterDepthChecked',
                                      waterDepthChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.urbanChecked',
+                                     urbanChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.blackwaterChecked',
+                                     blackwaterChecked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.ir1Checked',
+                                     ir1Checked);
+            newState = immutable.set(newState,
+                                     'singleLayer.imagery.ir2Checked',
+                                     ir2Checked);
 
             return newState;
         case SET_IMAGERY_OPACITY:
