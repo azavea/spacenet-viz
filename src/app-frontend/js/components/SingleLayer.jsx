@@ -563,12 +563,14 @@ hues.'
                             onClick={this.checkVegetation}
                             text="VEGETATION"
                             className={this.isActive(imagery.vegetationChecked)}
+                            title="Vegetation Composite (left). NIR2 | Yellow | Coastal. Higher levels of vegetation correlate with deeper reds. I thought this did a pretty good job from low to high levels of vegetation. A traditional False Color Composite (NIR1 | Red | Green) is shown on the right. Dubrovnik, Croatia."
                         />
                         <Button
                             active={imagery.shadowChecked}
                             onClick={this.checkShadow}
                             text="SHADOW"
                             className={this.isActive(imagery.shadowChecked)}
+                            title="Shadow Composite. NIR2 | Red Edge | Yellow. There are a few options here, incorporating both a NIR band and the red-edge band, plus any other visible band. This combination seemed to make the shadows pop out more. Dubrovnik, Croatia."
                         />
                     </div>
                     <div className="pt-button-group pt-fill">
@@ -577,12 +579,14 @@ hues.'
                             onClick={this.checkCement}
                             text="CEMENT"
                             className={this.isActive(imagery.cementChecked)}
+                            title="Cement Composite. NIR2 | Yellow | Blue. There are a few options here. I chose this one because there’s a greater distinction with what’s on the cement (i.e. painted stripes and cars) than what I saw in the other potential composites. Dubrovnik, Croatia."
                         />
                         <Button
                             active={imagery.sedimentationChecked}
                             onClick={this.checkSedimentation}
                             text="SEDIMENTATION"
                             className={this.isActive(imagery.sedimentationChecked)}
+                            title="Sedimentation Composite. Red | Yellow | Coastal. New York City."
                         />
                     </div>
                     <div className="pt-button-group pt-fill">
@@ -591,12 +595,14 @@ hues.'
                             onClick={this.checkMudFlats}
                             text="MUDFLATS"
                             className={this.isActive(imagery.mudFlatsChecked)}
+                            title="Mud Flat Composite. Red Edge | Yellow | Coastal. You heard it here first. This is the Al Khor Wildlife Reserve in Dubai. The green areas are mudflats used by flamingos for breeding and feeding. You can see the channels that cut through the flats well."
                         />
                         <Button
                             active={imagery.redRoofsChecked}
                             onClick={this.checkRedRoofs}
                             text="REDROOFS"
                             className={this.isActive(imagery.redRoofsChecked)}
+                            title="Red Roof Composite. Red | Yellow | Green. Dubrovnik, Croatia."
                         />
                     </div>
                     <div className="pt-button-group pt-fill">
@@ -605,6 +611,7 @@ hues.'
                                 onClick={this.checkWaterDepth}
                                 text="WATERDEPTH"
                                 className={this.isActive(imagery.waterDepthChecked)}
+                                title="Water Depth Composite. Green | Blue | Coastal. Dubrovnik, Croatia."
                             />
                             <Button
                                 active={!(imagery.vegetationChecked || imagery.cementChecked || imagery.shadowChecked || imagery.cementChecked || imagery.sedimentationChecked || imagery.mudFlatsChecked || imagery.redRoofsChecked || imagery.waterDepthChecked)}
