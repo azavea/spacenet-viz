@@ -5,8 +5,8 @@ import { isDevelopment } from 'constants.js';
 
 let innerCreateStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 if (isDevelopment) {
-    const logger = createLogger();
-    innerCreateStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
+  const logger = createLogger();
+  innerCreateStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
 }
 
 const createStoreWithMiddleware = innerCreateStoreWithMiddleware;
