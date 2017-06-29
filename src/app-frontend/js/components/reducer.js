@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import immutable from 'object-path-immutable';
 import { defaultMapCenter } from 'constants';
 
@@ -135,35 +134,29 @@ const initAppPage = {
     center: defaultMapCenter,
 };
 
-function propForActiveTab(state, propName) {
-    if (state.singleLayer.active) {
-        return `singleLayer.${propName}`;
-    }
-    return `changeDetection.${propName}`;
-}
 
 export default function appPage(state = initAppPage, action) {
     let newState = state;
 
     switch (action.type) {
         case SET_ZOOM:
-            console.log(`SET_ZOOM:${action.payload}`);
+            // // console.log(`SET_ZOOM:${action.payload}`);
             newState = immutable.set(newState, 'zoom', action.payload);
             return newState;
         case CLEAR_GEOMETRIES:
-            console.log('Clearing Geometries');
+            // console.log('Clearing Geometries');
             newState = immutable.set(newState, 'analysis.polygon', null);
             newState = immutable.set(newState, 'analysis.point', null);
             newState = immutable.set(newState, 'analysis.isFetching', false);
             newState = immutable.set(newState, 'analysis.fetchError', action.payload);
             return newState;
         case SET_POLYGON:
-            console.log('Setting polygon');
+            // console.log('Setting polygon');
             newState = immutable.set(newState, 'analysis.polygon', action.payload);
             newState = immutable.set(newState, 'analysis.point', null);
             return newState;
         case SET_POINT:
-            console.log('Setting polygon');
+            // console.log('Setting polygon');
             newState = immutable.set(newState, 'analysis.polygon', null);
             newState = immutable.set(newState, 'analysis.point', action.payload);
             return newState;
@@ -179,8 +172,8 @@ export default function appPage(state = initAppPage, action) {
             return newState;
         case SET_ACTIVE_TAB:
             newState = immutable.set(newState, 'activeTab', action.payload);
-            newState = immutable.set(newState, 'singleLayer.active', action.payload == 0);
-            newState = immutable.set(newState, 'changeDetection.active', action.payload == 1);
+            newState = immutable.set(newState, 'singleLayer.active', action.payload === 0);
+            newState = immutable.set(newState, 'changeDetection.active', action.payload === 1);
             newState = immutable.set(newState, 'analysis.polygon', null);
             newState = immutable.set(newState, 'analysis.point', null);
             newState = immutable.set(newState, 'analysis.isFetching', false);
@@ -188,18 +181,18 @@ export default function appPage(state = initAppPage, action) {
 
             return newState;
         case START_FETCH_STATS:
-            console.log('START FETCH STATS REDUCER');
+            // console.log('START FETCH STATS REDUCER');
             newState = immutable.set(newState, 'analysis.isFetching', true);
             return newState;
         case END_FETCH_STATS:
-            console.log(`FETCH RESULT: ${action.payload}`);
+            // console.log(`FETCH RESULT: ${action.payload}`);
             if (state.analysis.isFetching) {
                 newState = immutable.set(newState, 'analysis.isFetching', false);
                 newState = immutable.set(newState, 'analysis.results', action.payload);
             }
             return newState;
         case FAIL_FETCH_STATS:
-            console.log(`FETCH ERROR: ${action.payload}`);
+            // console.log(`FETCH ERROR: ${action.payload}`);
             if (state.analysis.isFetching) {
                 newState = immutable.set(newState, 'analysis.isFetching', false);
                 newState = immutable.set(newState, 'analysis.fetchError', action.payload);
@@ -210,22 +203,22 @@ export default function appPage(state = initAppPage, action) {
 
         case SET_IMAGERY_TYPE:
             // May be "NONE"
-            var rgbChecked = action.payload == 'RGB';
-            var irrgChecked = action.payload == 'IRRG';
-            var irgbChecked = action.payload == 'IRGB';
-            var ndviChecked = action.payload == 'NDVI';
-            var grayscaleChecked = action.payload == 'GRAYSCALE';
-            var vegetationChecked = action.payload == 'VEGETATION';
-            var shadowChecked = action.payload == 'SHADOW';
-            var cementChecked = action.payload == 'CEMENT';
-            var sedimentationChecked = action.payload == 'SEDIMENTATION';
-            var mudFlatsChecked = action.payload == 'MUDFLATS';
-            var redRoofsChecked = action.payload == 'REDROOFS';
-            var waterDepthChecked = action.payload == 'WATERDEPTH';
-            var urbanChecked = action.payload == 'URBAN';
-            var blackwaterChecked = action.payload == 'BLACKWATER';
-            var ir1Checked = action.payload == 'IR1';
-            var ir2Checked = action.payload == 'IR2';
+            var rgbChecked = action.payload === 'RGB';
+            var irrgChecked = action.payload === 'IRRG';
+            var irgbChecked = action.payload === 'IRGB';
+            var ndviChecked = action.payload === 'NDVI';
+            var grayscaleChecked = action.payload === 'GRAYSCALE';
+            var vegetationChecked = action.payload === 'VEGETATION';
+            var shadowChecked = action.payload === 'SHADOW';
+            var cementChecked = action.payload === 'CEMENT';
+            var sedimentationChecked = action.payload === 'SEDIMENTATION';
+            var mudFlatsChecked = action.payload === 'MUDFLATS';
+            var redRoofsChecked = action.payload === 'REDROOFS';
+            var waterDepthChecked = action.payload === 'WATERDEPTH';
+            var urbanChecked = action.payload === 'URBAN';
+            var blackwaterChecked = action.payload === 'BLACKWATER';
+            var ir1Checked = action.payload === 'IR1';
+            var ir2Checked = action.payload === 'IR2';
 
             newState = immutable.set(newState,
                                      'singleLayer.imagery.rgbChecked',
@@ -283,8 +276,8 @@ export default function appPage(state = initAppPage, action) {
                                  action.payload);
         case SET_DSM_TYPE:
             // May be "NONE"
-            var colorRampChecked = action.payload == 'COLORRAMP';
-            var hillshadeChecked = action.payload == 'HILLSHADE';
+            var colorRampChecked = action.payload === 'COLORRAMP';
+            var hillshadeChecked = action.payload === 'HILLSHADE';
 
             if (action.isGt) {
                 newState = immutable.set(newState,
@@ -314,7 +307,7 @@ export default function appPage(state = initAppPage, action) {
 
         case SET_LABELS_TYPE:
             // May be "NONE"
-            var checked = action.payload == 'CHECKED';
+            var checked = action.payload === 'CHECKED';
 
             newState = immutable.set(newState,
                                      'singleLayer.labels.checked',
@@ -327,9 +320,9 @@ export default function appPage(state = initAppPage, action) {
         case SET_MODEL_PREDICTION_TYPE:
             var modelId = action.payload.modelId;
             // May be "NONE"
-            var incorrectChecked = action.payload.layerType == 'INCORRECT';
-            var allChecked = action.payload.layerType == 'ALL';
-            console.log(` MODEL ID:${modelId}`, `  TYPE: ${action.payload.layerType}`);
+            var incorrectChecked = action.payload.layerType === 'INCORRECT';
+            var allChecked = action.payload.layerType === 'ALL';
+            // console.log(` MODEL ID:${modelId}`, `  TYPE: ${action.payload.layerType}`);
             newState = immutable.set(newState,
                                      `singleLayer.models.${modelId}.predictions.incorrectChecked`,
                                      incorrectChecked);
@@ -348,12 +341,12 @@ export default function appPage(state = initAppPage, action) {
             newState = immutable.set(newState,
                                      `singleLayer.models.${modelId}.probabilities.labelId`,
                                      labelId);
-            /* console.log("NEW STATE LABELID: " + newState.singleLayer.models.*/
+            /* // console.log("NEW STATE LABELID: " + newState.singleLayer.models.*/
             return newState;
         case SET_MODEL_PROBABILITIES_TYPE:
             var modelId = action.payload.modelId;
             // May be "NONE"
-            var checked = action.payload.layerType == 'CHECKED';
+            var checked = action.payload.layerType === 'CHECKED';
 
             newState = immutable.set(newState,
                                      `singleLayer.models.${modelId}.probabilities.checked`,
@@ -368,7 +361,7 @@ export default function appPage(state = initAppPage, action) {
         // Hacked together
         case SET_AB_TYPE:
             // May be "NONE"
-            var checked = action.payload == 'CHECKED';
+            var checked = action.payload === 'CHECKED';
 
             if (action.isDsm) {
                 newState = immutable.set(newState,
@@ -392,7 +385,7 @@ export default function appPage(state = initAppPage, action) {
                                    action.payload);
 
         default:
-            console.log(`UNKOWN ACTION: ${action.type}`);
+            // console.log(`UNKOWN ACTION: ${action.type}`);
             return newState;
     }
 }
