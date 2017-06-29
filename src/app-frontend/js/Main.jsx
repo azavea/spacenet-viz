@@ -16,5 +16,5 @@ render(
             <Route path="/" component={App} />
         </Router>
     </Provider>,
-    document.getElementById('mount')
+    document.getElementById('mount'),
 );
