@@ -2,8 +2,6 @@
 
 This is an application for viewing the [SpaceNet](https://spacenetchallenge.github.io/) dataset and results from Azavea's Raster Vision project applied to SpaceNet.
 
-TODO: Modify README to remove all ISPRS viewer references.
-
 ### Requirements
 
 * Vagrant 1.8+
@@ -36,8 +34,7 @@ vagrant ssh
 
 #### Downloading test data
 
-`make load-local` will download the necessary data. Make sure you environment variable `AWS_DEFAULT_PROFILE`
-is set to the correct profile.
+`make load-local` will download the necessary data. Make sure you environment variable `AWS_DEFAULT_PROFILE` is set to the correct profile.
 
 #### Using Docker in the VM
 
@@ -64,14 +61,10 @@ The other project scripts are meant to execute in the VM in the `/vagrant` direc
 
 | Command          | Description
 |------------------|------------------------------------------------------------|
-|local-run         |Run benchmark job locally                                   |
 |upload-code       |Upload code and scripts to S3                               |
 |create-cluster    |Create EMR cluster with configurations                      |
-|ingest-dsm        |IDW ingest with or without pyramiding                       |
-|ingest-labels     |Raw PointCloud ingest without pyramiding yet                |
-|ingest-rgbir      |Local IDW ingest with or without pyramiding                 |
-|ingest-unet       |Run server on EMR master                                    |
-|ingest-fcn        |TIN ingest with or without pyramiding                       |
+|ingest-paris      |EMR Paris tiff ingest without pyramiding                    |
+|local-ingest-paris|Local Paris tiff ingest with pyramiding                     |
 |wait              |Wait for last step to finish                                |
 |proxy             |Create SOCKS proxy for active cluster                       |
 |ssh               |SSH into cluster master                                     |
@@ -95,7 +88,7 @@ You will need to modify `config-aws.mk` to reflect your credentials and your VPC
 
 ```bash
 make upload-code && make create-cluster
-make ingest-rgbir
+make ingest-paris
 ```
 
 ## Licence
