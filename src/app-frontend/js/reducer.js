@@ -3,6 +3,6 @@ import appPage from './components/reducer';
 
 const mainReducer = combineReducers({
     appPage,
-  });
+});
 
 export default mainReducer;

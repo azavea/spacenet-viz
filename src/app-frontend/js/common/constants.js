@@ -6,11 +6,10 @@ export const LayerNames = {
     snowOn: 'isprs-potsdam-dsm',
     snowOff: 'isprs-potsdam-dsm',
     addTin(ln) { return ln; },
-
     addIdw(ln) { return ln; },
-  };
+};
 
 export const polygonDefaults = {
     fillColor: '#0000FF',
     color: '#0000FF',
-  };
+};

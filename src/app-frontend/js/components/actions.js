@@ -31,198 +31,199 @@ export const END_FETCH_STATS = 'END_FETCH_STATS';
 export const FAIL_FETCH_STATS = 'FAIL_FETCH_STATS';
 
 export function setZoom(zoom) {
-  return {
-      type: SET_ZOOM,
-      payload: zoom,
+    return {
+        type: SET_ZOOM,
+        payload: zoom,
     };
 }
 
 export function setImageryType(layerType) {
-  return {
-      type: SET_IMAGERY_TYPE,
-      payload: layerType,
+    return {
+        type: SET_IMAGERY_TYPE,
+        payload: layerType,
     };
 }
 
 export function setImageryOpacity(value) {
-  return {
-      type: SET_IMAGERY_OPACITY,
-      payload: value,
+    return {
+        type: SET_IMAGERY_OPACITY,
+        payload: value,
     };
 }
 
 export function setDsmType(layerType, layerDiscriminator) {
-  return {
-      type: SET_DSM_TYPE,
-      payload: layerType,
-      isGt: layerDiscriminator == 'gt',
+    return {
+        type: SET_DSM_TYPE,
+        payload: layerType,
+        isGt: layerDiscriminator == 'gt',
     };
 }
 
 export function setDsmOpacity(value, layerDiscriminator) {
-  return {
-      type: SET_DSM_OPACITY,
-      payload: value,
-      isGt: layerDiscriminator == 'gt',
+    return {
+        type: SET_DSM_OPACITY,
+        payload: value,
+        isGt: layerDiscriminator == 'gt',
     };
 }
 
 export function setLabelsType(layerType) {
-  return {
-      type: SET_LABELS_TYPE,
-      payload: layerType,
+    return {
+        type: SET_LABELS_TYPE,
+        payload: layerType,
     };
 }
 
 export function setLabelsOpacity(value) {
-  return {
-      type: SET_LABELS_OPACITY,
-      payload: value,
+    return {
+        type: SET_LABELS_OPACITY,
+        payload: value,
     };
 }
 
 export function setModelPredictionType(modelId, layerType) {
-  return {
-      type: SET_MODEL_PREDICTION_TYPE,
-      payload: { modelId, layerType },
+    return {
+        type: SET_MODEL_PREDICTION_TYPE,
+        payload: { modelId, layerType },
     };
 }
 
 export function setModelPredictionOpacity(modelId, value) {
-  return {
-      type: SET_MODEL_PREDICTION_OPACITY,
-      payload: { modelId, opacity: value },
+    return {
+        type: SET_MODEL_PREDICTION_OPACITY,
+        payload: { modelId, opacity: value },
     };
 }
 
 export function setModelProbabilitiesType(modelId, layerType) {
-  return {
-      type: SET_MODEL_PROBABILITIES_TYPE,
-      payload: { modelId, layerType },
+    return {
+        type: SET_MODEL_PROBABILITIES_TYPE,
+        payload: { modelId, layerType },
     };
 }
 
 export function setModelProbabilitiesOpacity(modelId, value) {
-  return {
-      type: SET_MODEL_PROBABILITIES_OPACITY,
-      payload: { modelId, opacity: value },
+    return {
+        type: SET_MODEL_PROBABILITIES_OPACITY,
+        payload: { modelId, opacity: value },
     };
 }
 
 export function setModelProbabilitiesLabel(modelId, value) {
-  return {
-      type: SET_MODEL_PROBABILITIES_LABEL,
-      payload: { modelId, labelId: value },
+    return {
+        type: SET_MODEL_PROBABILITIES_LABEL,
+        payload: { modelId, labelId: value },
     };
 }
 
 export function setAbType(layerType, layerDiscriminator) {
-  return {
-      type: SET_AB_TYPE,
-      payload: layerType,
-      isDsm: layerDiscriminator == 'dsm',
+    return {
+        type: SET_AB_TYPE,
+        payload: layerType,
+        isDsm: layerDiscriminator == 'dsm',
     };
 }
 
 export function setAbOpacity(value, layerDiscriminator) {
-  return {
-      type: SET_AB_OPACITY,
-      payload: value,
-      isDsm: layerDiscriminator == 'dsm',
+    return {
+        type: SET_AB_OPACITY,
+        payload: value,
+        isDsm: layerDiscriminator == 'dsm',
     };
 }
 
+
 export function clearGeometries() {
-  return {
-      type: CLEAR_GEOMETRIES,
-      payload: null,
+    return {
+        type: CLEAR_GEOMETRIES,
+        payload: null,
     };
 }
 
 export function setPolygon(polygon) {
-  return {
-      type: SET_POLYGON,
-      payload: polygon,
+    return {
+        type: SET_POLYGON,
+        payload: polygon,
     };
 }
 
 export function setPoint(point) {
-  return {
-      type: SET_POINT,
-      payload: point,
+    return {
+        type: SET_POINT,
+        payload: point,
     };
 }
 
 export function setAnalysisOn(flag) {
-  return {
-      type: SET_ANALYSIS_ON,
-      payload: flag,
+    return {
+        type: SET_ANALYSIS_ON,
+        payload: flag,
     };
 }
 
 export function setActiveTab(idx) {
-  return {
-      type: SET_ACTIVE_TAB,
-      payload: idx,
+    return {
+        type: SET_ACTIVE_TAB,
+        payload: idx,
     };
 }
 
 export function startFetchStats() {
-  console.log('START_FETCH_STATS');
-  return {
-      type: START_FETCH_STATS,
-      payload: null,
+    console.log('START_FETCH_STATS');
+    return {
+        type: START_FETCH_STATS,
+        payload: null,
     };
 }
 
 export function endFetchStats(result) {
-  console.log(`END_FETCH_STATS: ${result}`);
-  return {
-      type: END_FETCH_STATS,
-      payload: result,
+    console.log(`END_FETCH_STATS: ${result}`);
+    return {
+        type: END_FETCH_STATS,
+        payload: result,
     };
 }
 
 export function failFetchStats(error) {
-  console.log(`FAIL_FETCH_STATS: ${error}`);
-  return {
-      type: FAIL_FETCH_STATS,
-      payload: error,
+    console.log(`FAIL_FETCH_STATS: ${error}`);
+    return {
+        type: FAIL_FETCH_STATS,
+        payload: error,
     };
 }
 
 export function fetchSinglePointStats(layerName, zoom, point) {
-  return (dispatch) => {
-      dispatch(startFetchStats());
-      singlePointStats(layerName, zoom, point)
-          .then(({ data }) => dispatch(endFetchStats(immutable.set(data, 'type', 'point'))))
-          .catch(error => dispatch(failFetchStats(error)));
+    return (dispatch) => {
+        dispatch(startFetchStats());
+        singlePointStats(layerName, zoom, point)
+            .then(({ data }) => dispatch(endFetchStats(immutable.set(data, 'type', 'point'))))
+            .catch(error => dispatch(failFetchStats(error)));
     };
 }
 
 export function fetchDiffPointStats(layer1Name, layer2Name, zoom, point) {
-  return (dispatch) => {
-      dispatch(startFetchStats());
-      diffPointStats(layer1Name, layer2Name, zoom, point)
-          .then(({ data }) => dispatch(endFetchStats(immutable.set(data, 'type', 'point'))))
-          .catch(error => dispatch(failFetchStats(error)));
+    return (dispatch) => {
+        dispatch(startFetchStats());
+        diffPointStats(layer1Name, layer2Name, zoom, point)
+            .then(({ data }) => dispatch(endFetchStats(immutable.set(data, 'type', 'point'))))
+            .catch(error => dispatch(failFetchStats(error)));
     };
 }
 
 export function fetchSinglePolyStats(layerName, zoom, poly) {
-  return (dispatch) => {
-      dispatch(startFetchStats());
-      singlePolyStats(layerName, zoom, poly)
-          .then(({ data }) => dispatch(endFetchStats(immutable.set(data, 'type', 'poly'))))
-          .catch(error => dispatch(failFetchStats(error)));
+    return (dispatch) => {
+        dispatch(startFetchStats());
+        singlePolyStats(layerName, zoom, poly)
+            .then(({ data }) => dispatch(endFetchStats(immutable.set(data, 'type', 'poly'))))
+            .catch(error => dispatch(failFetchStats(error)));
     };
 }
 
 export function fetchDiffPolyStats(layer1Name, layer2Name, zoom, poly) {
-  return (dispatch) => {
-      dispatch(startFetchStats());
-      diffPolyStats(layer1Name, layer2Name, zoom, poly)
-          .then(({ data }) => dispatch(endFetchStats(immutable.set(data, 'type', 'poly'))))
-          .catch(error => dispatch(failFetchStats(error)));
+    return (dispatch) => {
+        dispatch(startFetchStats());
+        diffPolyStats(layer1Name, layer2Name, zoom, poly)
+            .then(({ data }) => dispatch(endFetchStats(immutable.set(data, 'type', 'poly'))))
+            .catch(error => dispatch(failFetchStats(error)));
     };
 }
