@@ -12,12 +12,5 @@ export LOCAL_INGEST_SCRIPT_PATH := ${PWD}/src/ingest/ingest.py
 export LOCAL_CATALOG := file://${PWD}/data/catalog/
 export LOCAL_PARIS_PATH := file://${PWD}/data/
 
-export S3_CATALOG := s3://otid-data/viz/catalog
-export INPUT_DSM := s3://otid-data/input/1_DSM_normalisation_geotiff-with-geo/
-export INPUT_DSMGT := s3://otid-data/input/geotrellis_generated_dsm/
-export INPUT_DSMGTN := s3://otid-data/input/geotrellis_generated_dsm_normalized/
-export INPUT_RGBIR := s3://otid-data/input/4_Ortho_RGBIR_geotiff/
-export INPUT_LABEL := s3://otid-data/input/5_Labels_for_participants_geotiff/
-export INPUT_RESULT_FCN := s3://otid-data/input/viz/fcn_results_4_7_17/
-export INPUT_RESULT_UNET := s3://otid-data/input/viz/unet_results_4_7_17/
-export INPUT_RESULT_FCNDSM := s3://otid-data/input/viz/fcn_results_irrgdsm_5_20_17-geo/
+export S3_CATALOG := s3://azavea-research-emr/spacenet-viz/ingest/yoni/catalog
+export INPUT_PARIS := s3://raster-vision/datasets/spacenet/AOI_3_Paris/AOI_3_Paris_Train/MUL-PanSharpen/

@@ -26,8 +26,20 @@ export default class SingleLayer extends Component {
 
         this.checkRgb = this.checkRgb.bind(this);
         this.checkIrrg = this.checkIrrg.bind(this);
+        this.checkIrgb = this.checkIrgb.bind(this);
         this.checkGrayscale = this.checkGrayscale.bind(this);
         this.checkNdvi = this.checkNdvi.bind(this);
+        this.checkVegetation = this.checkVegetation.bind(this);
+        this.checkShadow = this.checkShadow.bind(this);
+        this.checkCement = this.checkCement.bind(this);
+        this.checkSedimentation = this.checkSedimentation.bind(this);
+        this.checkMudFlats = this.checkMudFlats.bind(this);
+        this.checkRedRoofs = this.checkRedRoofs.bind(this);
+        this.checkWaterDepth = this.checkWaterDepth.bind(this);
+        this.checkUrban = this.checkUrban.bind(this);
+        this.checkBlackwater = this.checkBlackwater.bind(this);
+        this.checkIR1 = this.checkIR1.bind(this);
+        this.checkIR2 = this.checkIR2.bind(this);
         this.checkNoImagery = this.checkNoImagery.bind(this);
         this.handleImageryOpacityChange = this.handleImageryOpacityChange.bind(this);
 
@@ -90,6 +102,11 @@ export default class SingleLayer extends Component {
         dispatch(setImageryType("IRRG"));
     }
 
+    checkIrgb() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("IRGB"));
+    }
+
     checkGrayscale() {
         const { dispatch } = this.props;
         dispatch(setImageryType("GRAYSCALE"));
@@ -98,6 +115,61 @@ export default class SingleLayer extends Component {
     checkNdvi() {
         const { dispatch } = this.props;
         dispatch(setImageryType("NDVI"));
+    }
+
+    checkVegetation() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("VEGETATION"));
+    }
+
+    checkShadow() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("SHADOW"));
+    }
+
+    checkCement() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("CEMENT"));
+    }
+
+    checkSedimentation() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("SEDIMENTATION"));
+    }
+
+    checkMudFlats() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("MUDFLATS"));
+    }
+
+    checkRedRoofs() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("REDROOFS"));
+    }
+
+    checkWaterDepth() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("WATERDEPTH"));
+    }
+
+    checkUrban() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("URBAN"));
+    }
+
+    checkBlackwater() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("BLACKWATER"));
+    }
+
+    checkIR1() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("IR1"));
+    }
+
+    checkIR2() {
+        const { dispatch } = this.props;
+        dispatch(setImageryType("IR2"));
     }
 
     checkNoImagery() {
@@ -434,12 +506,33 @@ export default class SingleLayer extends Component {
                             onClick={this.checkRgb}
                             text="RGB"
                             className={this.isActive(imagery.rgbChecked)}
+                            title='5,3,2 (Red,Green,Blue)
+The "natural color" band combination. Because the visible bands are used in this combination, ground features appear
+in colors similar to their appearance to the human visual system, healthy vegetation is green, recently cleared fields are
+very light, unhealthy vegetation is brown and yellow, roads are gray, and shorelines are white.'
                         />
                         <Button
                             active={imagery.irrgChecked}
                             onClick={this.checkIrrg}
                             text="IRRG"
                             className={this.isActive(imagery.irrgChecked)}
+                            title='7,5,3 (NIR1,Red,Green)
+The standard "false color" composite. Vegetation appears in shades of red, urban areas are cyan blue, and soils vary
+from dark to light browns. Ice, snow and clouds are white or light cyan. Coniferous trees will appear darker red than
+hardwoods. This is a very popular band combination and is useful for vegetation studies, monitoring drainage and soil
+patterns and various stages of crop growth. Densely populated urban areas are shown in light blue. This band
+combination gives results similar to traditional color infrared aerial photography.'
+                        />
+                        <Button
+                            active={imagery.irgbChecked}
+                            onClick={this.checkIrgb}
+                            text="IRGB"
+                            className={this.isActive(imagery.irgbChecked)}
+                            title='7,3,2 (NIR1,Green,Blue)
+Modified “false color” composite band combination. Generally, this band combination differentiates conifer-deciduousgrassy
+vegetation with a broader hue change than the standard false color composite band combination. Conifers
+appear dark-red, deciduous tend to be represented in brighter-reds while grassy areas tend to show up with orange-red
+hues.'
                         />
                     </div>
                     <div className="pt-button-group pt-fill">
@@ -456,92 +549,137 @@ export default class SingleLayer extends Component {
                             className={this.isActive(imagery.grayscaleChecked)}
                         />
                         <Button
-                            active={!(imagery.rgbChecked || imagery.irrgChecked || imagery.ndviChecked || imagery.grayscaleChecked)}
+                            active={!(imagery.rgbChecked || imagery.irrgChecked || imagery.irgbChecked || imagery.ndviChecked || imagery.grayscaleChecked)}
                             onClick={this.checkNoImagery}
                             text="OFF"
-                            className={this.isActive(!(imagery.rgbChecked || imagery.irrgChecked || imagery.ndviChecked || imagery.grayscaleChecked))}
+                            className={this.isActive(!(imagery.rgbChecked || imagery.irrgChecked || imagery.irgbChecked || imagery.ndviChecked || imagery.grayscaleChecked))}
                         />
                     </div>
-                    <div className="slider-section">
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={imagery.opacity}
-                            onChange={this.handleImageryOpacityChange}
-                        />
-                    </div>
-                </div>
-                <div className="option-section">
-                    <label htmlFor="" className="primary">DSM</label>
+                    <br></br>
+                    <label htmlFor="" className="primary"><a href="https://blogs.esri.com/esri/arcgis/2013/07/31/band-combinations-for-worldview-2/">Esri Blog</a> - Combos for Worldview 2 (see <a href="http://content.satimagingcorp.com/media/pdf/WorldView-2_8-Band_Applications_Whitepaper.pdf">Digital Globe Whitepaper</a>)</label>
                     <div className="pt-button-group pt-fill">
                         <Button
-                            active={dsm.hillshadeChecked}
-                            onClick={this.checkHillshade}
-                            text="Hillshade"
-                            className={this.isActive(dsm.hillshadeChecked)}
+                            active={imagery.vegetationChecked}
+                            onClick={this.checkVegetation}
+                            text="VEGETATION"
+                            className={this.isActive(imagery.vegetationChecked)}
+                            title="Vegetation Composite (left). NIR2 | Yellow | Coastal. Higher levels of vegetation correlate with deeper reds. I thought this did a pretty good job from low to high levels of vegetation. A traditional False Color Composite (NIR1 | Red | Green) is shown on the right. Dubrovnik, Croatia."
                         />
                         <Button
-                            active={dsm.colorRampChecked}
-                            onClick={this.checkColorRamp}
-                            text="Ramp"
-                            className={this.isActive(dsm.colorRampChecked)}
-                        />
-                        <Button
-                            active={!(dsm.colorRampChecked || dsm.hillshadeChecked)}
-                            onClick={this.checkNoDsm}
-                            text="OFF"
-                            className={this.isActive(!(dsm.colorRampChecked || dsm.hillshadeChecked))}
+                            active={imagery.shadowChecked}
+                            onClick={this.checkShadow}
+                            text="SHADOW"
+                            className={this.isActive(imagery.shadowChecked)}
+                            title="Shadow Composite. NIR2 | Red Edge | Yellow. There are a few options here, incorporating both a NIR band and the red-edge band, plus any other visible band. This combination seemed to make the shadows pop out more. Dubrovnik, Croatia."
                         />
                     </div>
-                    <div className="slider-section">
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={dsm.opacity}
-                            onChange={this.handleDsmOpacityChange}
-                        />
-                    </div>
-                </div>
-                <div className="option-section">
-                    <label htmlFor="" className="primary">DSM - GeoTrellis Generated</label>
                     <div className="pt-button-group pt-fill">
                         <Button
-                            active={dsmGt.hillshadeChecked}
-                            onClick={this.checkGtHillshade}
-                            text="Hillshade"
-                            className={this.isActive(dsmGt.hillshadeChecked)}
+                            active={imagery.cementChecked}
+                            onClick={this.checkCement}
+                            text="CEMENT"
+                            className={this.isActive(imagery.cementChecked)}
+                            title="Cement Composite. NIR2 | Yellow | Blue. There are a few options here. I chose this one because there’s a greater distinction with what’s on the cement (i.e. painted stripes and cars) than what I saw in the other potential composites. Dubrovnik, Croatia."
                         />
                         <Button
-                            active={dsmGt.colorRampChecked}
-                            onClick={this.checkGtColorRamp}
-                            text="Ramp"
-                            className={this.isActive(dsmGt.colorRampChecked)}
+                            active={imagery.sedimentationChecked}
+                            onClick={this.checkSedimentation}
+                            text="SEDIMENTATION"
+                            className={this.isActive(imagery.sedimentationChecked)}
+                            title="Sedimentation Composite. Red | Yellow | Coastal. New York City."
+                        />
+                    </div>
+                    <div className="pt-button-group pt-fill">
+                        <Button
+                            active={imagery.mudFlatsChecked}
+                            onClick={this.checkMudFlats}
+                            text="MUDFLATS"
+                            className={this.isActive(imagery.mudFlatsChecked)}
+                            title="Mud Flat Composite. Red Edge | Yellow | Coastal. You heard it here first. This is the Al Khor Wildlife Reserve in Dubai. The green areas are mudflats used by flamingos for breeding and feeding. You can see the channels that cut through the flats well."
                         />
                         <Button
-                            active={!(dsmGt.colorRampChecked || dsmGt.hillshadeChecked)}
-                            onClick={this.checkGtNoDsm}
+                            active={imagery.redRoofsChecked}
+                            onClick={this.checkRedRoofs}
+                            text="REDROOFS"
+                            className={this.isActive(imagery.redRoofsChecked)}
+                            title="Red Roof Composite. Red | Yellow | Green. Dubrovnik, Croatia."
+                        />
+                    </div>
+                    <div className="pt-button-group pt-fill">
+                            <Button
+                                active={imagery.waterDepthChecked}
+                                onClick={this.checkWaterDepth}
+                                text="WATERDEPTH"
+                                className={this.isActive(imagery.waterDepthChecked)}
+                                title="Water Depth Composite. Green | Blue | Coastal. Dubrovnik, Croatia."
+                            />
+                            <Button
+                                active={!(imagery.vegetationChecked || imagery.cementChecked || imagery.shadowChecked || imagery.cementChecked || imagery.sedimentationChecked || imagery.mudFlatsChecked || imagery.redRoofsChecked || imagery.waterDepthChecked)}
+                                onClick={this.checkNoImagery}
+                                text="OFF"
+                                className={this.isActive(!(imagery.vegetationChecked || imagery.cementChecked || imagery.shadowChecked || imagery.cementChecked || imagery.sedimentationChecked || imagery.mudFlatsChecked || imagery.redRoofsChecked || imagery.waterDepthChecked))}
+                            />
+                    </div>
+                    <br></br>
+                    <label htmlFor="" className="primary">SpaceNetChallenge's <a href="https://github.com/SpaceNetChallenge/BuildingDetectorVisualizer">BuildingDetectorVisualizer</a> - <a href="https://github.com/SpaceNetChallenge/BuildingDetectorVisualizer/blob/master/visualizer-1.1/data/band-triplets.txt">triplets</a></label>
+                    <div className="pt-button-group pt-fill">
+                        <Button
+                            active={imagery.urbanChecked}
+                            onClick={this.checkUrban}
+                            text="URBAN"
+                            className={this.isActive(imagery.urbanChecked)}
+                            title="875	Urban
+                            # 8. Near-IR2: 860 - 1040 nm
+                            # 7. Near-IR1: 770 - 895 nm
+                            # 5. Red:      630 - 690 nm"
+                        />
+                        <Button
+                            active={imagery.blackwaterChecked}
+                            onClick={this.checkBlackwater}
+                            text="BLACKWATER"
+                            className={this.isActive(imagery.blackwaterChecked)}
+                            title="781	Blackwater
+                            # 7. Near-IR1: 770 - 895 nm
+                            # 8. Near-IR2: 860 - 1040 nm
+                            # 1. Coastal:  400 - 450 nm"
+                        />
+                    </div>
+                    <div className="pt-button-group pt-fill">
+                        <Button
+                            active={imagery.ir1Checked}
+                            onClick={this.checkIR1}
+                            text="IR1"
+                            className={this.isActive(imagery.ir1Checked)}
+                            title="777	Infra red 1
+                            # 7. Near-IR1: 770 - 895 nm"
+                        />
+                        <Button
+                            active={imagery.ir2Checked}
+                            onClick={this.checkIR2}
+                            text="IR2"
+                            className={this.isActive(imagery.ir2Checked)}
+                            title="888	Infra red 2
+                            # 8. Near-IR2: 860 - 1040 nm"
+                        />
+                        <Button
+                            active={!(imagery.urbanChecked || imagery.blackwaterChecked || imagery.ir1Checked || imagery.ir2Checked)}
+                            onClick={this.checkNoImagery}
                             text="OFF"
-                            className={this.isActive(!(dsmGt.colorRampChecked || dsmGt.hillshadeChecked))}
+                            className={this.isActive(!(imagery.urbanChecked || imagery.blackwaterChecked || imagery.ir1Checked || imagery.ir2Checked))}
                         />
                     </div>
-                    <div className="slider-section">
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={dsmGt.opacity}
-                            onChange={this.handleDsmGtOpacityChange}
-                        />
-                    </div>
+
+                  <label htmlFor="" className="secondary">Opacity</label>
+                          <Slider
+                              min={0}
+                              max={1}
+                              stepSize={0.02}
+                              renderLabel={false}
+                              value={imagery.opacity}
+                              onChange={this.handleImageryOpacityChange}
+                          />
                 </div>
+
                 <div className="option-section">
                     <label htmlFor="" className="primary">Labels</label>
                     <div className="pt-button-group pt-fill">
@@ -570,67 +708,41 @@ export default class SingleLayer extends Component {
                         />
                     </div>
                 </div>
-                {modelSections}
-                <div className="option-section">
-                    <label htmlFor="" className="primary">FCN vs UNET</label>
-                    <div className="pt-button-group pt-fill">
-                        <Button
-                            active={ab.checked}
-                            onClick={this.checkAb}
-                            text="ON"
-                            className={this.isActive(ab.checked)}
-                        />
-                        <Button
-                            active={!ab.checked}
-                            onClick={this.checkNoAb}
-                            text="OFF"
-                            className={this.isActive(!ab.checked)}
-                        />
-                    </div>
-                    <div className="slider-section">
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={ab.opacity}
-                            onChange={this.handleAbOpacityChange}
-                        />
-                    </div>
-                </div>
-                <div className="option-section">
-                    <label htmlFor="" className="primary">FCN vs FCN w/ DSM</label>
-                    <div className="pt-button-group pt-fill">
-                        <Button
-                            active={abDsm.checked}
-                            onClick={this.checkAbDsm}
-                            text="ON"
-                            className={this.isActive(abDsm.checked)}
-                        />
-                        <Button
-                            active={!abDsm.checked}
-                            onClick={this.checkNoAbDsm}
-                            text="OFF"
-                            className={this.isActive(!abDsm.checked)}
-                        />
-                    </div>
-                    <div className="slider-section">
-                        <label htmlFor="" className="secondary">Opacity</label>
-                        <Slider
-                            min={0}
-                            max={1}
-                            stepSize={0.02}
-                            renderLabel={false}
-                            value={abDsm.opacity}
-                            onChange={this.handleAbDsmOpacityChange}
-                        />
-                    </div>
-                </div>
             </div>
         );
     }
 }
+
+// {modelSections}
+// <div className="option-section">
+//     <label htmlFor="" className="primary">FCN vs UNET</label>
+//     <div className="pt-button-group pt-fill">
+//         <Button
+//             active={ab.checked}
+//             onClick={this.checkAb}
+//             text="ON"
+//             className={this.isActive(ab.checked)}
+//         />
+//         <Button
+//             active={!ab.checked}
+//             onClick={this.checkNoAb}
+//             text="OFF"
+//             className={this.isActive(!ab.checked)}
+//         />
+//     </div>
+//     <div className="slider-section">
+//         <label htmlFor="" className="secondary">Opacity</label>
+//         <Slider
+//             min={0}
+//             max={1}
+//             stepSize={0.02}
+//             renderLabel={false}
+//             value={ab.opacity}
+//             onChange={this.handleAbOpacityChange}
+//         />
+//     </div>
+// </div>
+
 
 SingleLayer.propTypes = {
     dispatch: PropTypes.func.isRequired,

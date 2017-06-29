@@ -112,10 +112,21 @@ export default class Map extends Component {
             }
 
             if(singleLayer.imagery.irrgChecked) {
-                var irrgUrl = "tms/imagery/rgb/isprs-potsdam-imagery-irrg/{z}/{x}/{y}"
+                var irrgUrl = "tms/imagery/irrg/spacenet-paris-imagery/{z}/{x}/{y}"
                 layers.push([<TileLayer
                                  key="irrgLayer"
                                  url={irrgUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                 />]);
+            }
+
+            if(singleLayer.imagery.irgbChecked) {
+                var irgbUrl = "tms/imagery/irgb/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="irgbLayer"
+                                 url={irgbUrl}
                                  opacity={singleLayer.imagery.opacity}
                                  maxZoom={22}
                                  zIndex={0}
@@ -142,6 +153,131 @@ export default class Map extends Component {
                                  maxZoom={22}
                                  zIndex={0}
                              />]);
+            }
+
+            // Esri blog
+
+            if(singleLayer.imagery.vegetationChecked) {
+                var vegetationUrl = "tms/imagery/vegetation/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="vegetationLayer"
+                                 url={vegetationUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.shadowChecked) {
+                var shadowUrl = "tms/imagery/shadow/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="shadowLayer"
+                                 url={shadowUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.cementChecked) {
+                var cementUrl = "tms/imagery/cement/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="cementLayer"
+                                 url={cementUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.sedimentationChecked) {
+                var sedimentationUrl = "tms/imagery/sedimentation/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="sedimentationLayer"
+                                 url={sedimentationUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.mudFlatsChecked) {
+                var mudFlatsUrl = "tms/imagery/mudflats/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="mudFlatsLayer"
+                                 url={mudFlatsUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.redRoofsChecked) {
+                var redRoofsUrl = "tms/imagery/redroofs/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="redRoofsLayer"
+                                 url={redRoofsUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.waterDepthChecked) {
+                var waterDepthUrl = "tms/imagery/waterdepth/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="waterDepthLayer"
+                                 url={waterDepthUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            // BuildingDetectorVisualizer
+
+            if(singleLayer.imagery.urbanChecked) {
+                var urbanUrl = "tms/imagery/urban/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="urbanLayer"
+                                 url={urbanUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.blackwaterChecked) {
+                var blackwaterUrl = "tms/imagery/blackwater/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="blackwaterLayer"
+                                 url={blackwaterUrl}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.ir1Checked) {
+                var ir1Url = "tms/imagery/ir1/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="ir1Layer"
+                                 url={ir1Url}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
+            }
+
+            if(singleLayer.imagery.ir2Checked) {
+                var ir2Url = "tms/imagery/ir2/spacenet-paris-imagery/{z}/{x}/{y}"
+                layers.push([<TileLayer
+                                 key="ir2Layer"
+                                 url={ir2Url}
+                                 opacity={singleLayer.imagery.opacity}
+                                 maxZoom={22}
+                                 zIndex={0}
+                                />]);
             }
 
             // DSM

@@ -61,8 +61,8 @@
           "GDAL_DATA": "/usr/local/share/gdal",
           "LD_LIBRARY_PATH": "/usr/local/lib",
           "SPARK_PRINT_LAUNCH_COMMAND": "1",
-          "PYSPARK_PYTHON": "python27",
-          "PYSPARK_DRIVER_PYTHON": "python27"
+          "PYSPARK_PYTHON": "python3",
+          "PYSPARK_DRIVER_PYTHON": "python3"
         }
       }
     ]

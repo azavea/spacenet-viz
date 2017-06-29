@@ -965,7 +965,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       // }
 
                       def convertTile(t: Tile): Tile = {
-                        val (min, max) = t.findMinMax
+                        val (min, max) = (0, 1000)
                         t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
                       }
 
@@ -973,13 +973,626 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       val green = convertTile(tile.band(2))
                       val blue = convertTile(tile.band(1))
 
-                      // val red = tile.band(4).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
-                      // val green = tile.band(2).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
-                      // val blue = tile.band(1).convert(ByteCellType).map(clamp _).normalize(min, max, 0, 255)
-
                       (red, green, blue)
                     }
                     val bytes = MultibandTile(red, green, blue).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("irrg") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (nir1, r, g) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      // def clamp(z: Int) = {
+                      //   if(isData(z)) { if(z > max) { max } else if(z < min) { min } else { z } }
+                      //   else { z }
+                      // }
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val nir1 = convertTile(tile.band(6))
+                      val r = convertTile(tile.band(4))
+                      val g = convertTile(tile.band(2))
+
+                      (nir1, r, g)
+                    }
+                    val bytes = MultibandTile(nir1, r, g).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("irgb") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (nir1, g, b) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      // def clamp(z: Int) = {
+                      //   if(isData(z)) { if(z > max) { max } else if(z < min) { min } else { z } }
+                      //   else { z }
+                      // }
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val nir1 = convertTile(tile.band(6))
+                      val g = convertTile(tile.band(2))
+                      val b = convertTile(tile.band(1))
+
+                      (nir1, g, b)
+                    }
+                    val bytes = MultibandTile(nir1, g, b).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("vegetation") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (nir2, y, c) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val nir2 = convertTile(tile.band(7))
+                      val y = convertTile(tile.band(3))
+                      val c = convertTile(tile.band(0))
+
+                      (nir2, y, c)
+                    }
+                    val bytes = MultibandTile(nir2, y, c).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("shadow") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (nir2, re, y) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val nir2 = convertTile(tile.band(7))
+                      val re = convertTile(tile.band(5))
+                      val y = convertTile(tile.band(3))
+
+                      (nir2, re, y)
+                    }
+                    val bytes = MultibandTile(nir2, re, y).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("cement") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (nir2, y, b) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val nir2 = convertTile(tile.band(7))
+                      val y = convertTile(tile.band(3))
+                      val b = convertTile(tile.band(1))
+
+                      (nir2, y, b)
+                    }
+                    val bytes = MultibandTile(nir2, y, b).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("sedimentation") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (r, y, c) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val r = convertTile(tile.band(4))
+                      val y = convertTile(tile.band(3))
+                      val c = convertTile(tile.band(0))
+
+                      (r, y, c)
+                    }
+                    val bytes = MultibandTile(r, y, c).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("mudflats") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (re, y, c) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val re = convertTile(tile.band(5))
+                      val y = convertTile(tile.band(3))
+                      val c = convertTile(tile.band(0))
+
+                      (re, y, c)
+                    }
+                    val bytes = MultibandTile(re, y, c).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("redroofs") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (r, y, g) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val r = convertTile(tile.band(4))
+                      val y = convertTile(tile.band(3))
+                      val g = convertTile(tile.band(2))
+
+                      (r, y, g)
+                    }
+                    val bytes = MultibandTile(r, y, g).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("waterdepth") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (y, g, c) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val y = convertTile(tile.band(3))
+                      val g = convertTile(tile.band(2))
+                      val c = convertTile(tile.band(0))
+
+                      (y, g, c)
+                    }
+                    val bytes = MultibandTile(y, g, c).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("urban") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (nir2, nir1, r) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val nir2 = convertTile(tile.band(7))
+                      val nir1 = convertTile(tile.band(6))
+                      val r = convertTile(tile.band(4))
+
+                      (nir2, nir1, r)
+                    }
+                    val bytes = MultibandTile(nir2, nir1, r).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("blackwater") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (nir1, nir2, c) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val nir1 = convertTile(tile.band(6))
+                      val nir2 = convertTile(tile.band(7))
+                      val c = convertTile(tile.band(0))
+
+                      (nir1, nir2, c)
+                    }
+                    val bytes = MultibandTile(nir1, nir2, c).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("ir1") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (nir1) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val nir1 = convertTile(tile.band(6))
+
+                      (nir1)
+                    }
+                    val bytes = MultibandTile(nir1, nir1, nir1).renderPng.bytes
+                    HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
+                  }
+                }
+              }
+            }
+          }
+        } ~
+        pathPrefix("ir2") {
+          pathPrefix(Segment / IntNumber / IntNumber / IntNumber) { (layerName, zoom, x, y) =>
+            parameters(
+              'poly ? ""
+            ) { (poly) =>
+              complete {
+                Future {
+
+                  val layerId = LayerId(layerName, zoom)
+                  val key = SpatialKey(x, y)
+                  val md = attributeStore.readMetadata[TileLayerMetadata[SpatialKey]](layerId)
+                  val extent = md.mapTransform(key)
+                  val polygon =
+                    if(poly.isEmpty) None
+                    else Some(poly.parseGeoJson[Polygon].reproject(LatLng, md.crs))
+
+                  val tileOpt =
+                    try {
+                      Some(getMultibandTile(layerId, key))
+                    } catch {
+                      case e: ValueNotFoundError =>
+                        None
+                    }
+                  tileOpt.map { tile =>
+                    val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
+                    val (nir2) = {
+                      // magic numbers. Fiddled with until visually it looked ok. ¯\_(ツ)_/¯
+
+                      def convertTile(t: Tile): Tile = {
+                        val (min, max) = (0, 1000)
+                        t.delayedConversion(ByteCellType).normalize(min, max, 0, 255)
+                      }
+
+                      val nir2 = convertTile(tile.band(7))
+
+                      (nir2)
+                    }
+                    val bytes = MultibandTile(nir2, nir2, nir2).renderPng.bytes
                     HttpResponse(entity = HttpEntity(ContentType(MediaTypes.`image/png`), bytes))
                   }
                 }
@@ -1008,7 +1621,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                       Some(
                         getMultibandTile(layerId, key)
                           .delayedConversion(IntCellType)
-                          .combine(0, 1, 2) { (r, g, b) =>
+                          .combine(4, 2, 1) { (r, g, b) =>
                           val v = (0.2989 * r.toDouble + 0.5870 * g.toDouble + 0.1140 * b.toDouble).toInt & 0xFF
 
                             if(v == 0) 0
@@ -1056,7 +1669,7 @@ trait Router extends Directives with Cache.CacheSupport with AkkaSystem.LoggerEx
                   tileOpt.map { tile =>
                     val masked = polygon.fold(tile) { p => tile.mask(extent, p.geom) }
                     val ndvi =
-                      masked.delayedConversion(DoubleConstantNoDataCellType).combineDouble(0, 1) { (r, ir) =>
+                      masked.delayedConversion(DoubleConstantNoDataCellType).combineDouble(4, 6) { (r, ir) =>
                         (ir - r) / (ir + r)
                       }
                     val bytes = ndvi.renderPng(ndviColorBreaks).bytes

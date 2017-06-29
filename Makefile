@@ -18,15 +18,16 @@ endif
 
 rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d))
 
-upload-code: ${RVVIZ_INGEST_ASSEMBLY} ${RVVIZ_SERVER_ASSEMBLY} deployment/emr/*
-	@aws s3 cp ${RVVIZ_INGEST_ASSEMBLY} ${S3_URI}/
+upload-code: deployment/emr/bootstrap-geopyspark.sh
+	@aws s3 cp deployment/emr/bootstrap-geopyspark.sh ${S3_URI}/
+	@aws s3 cp src/ingest/ingest.py ${S3_URI}/
 
 load-local:
 	scripts/load_development_data.sh
 
 create-cluster:
 	aws emr create-cluster --name "${NAME}" ${COLOR_TAG} \
---release-label emr-5.4.0 \
+--release-label emr-5.6.0 \
 --output text \
 --use-default-roles \
 --configurations "file://$(CURDIR)/deployment/emr/configurations.json" \
@@ -36,7 +37,27 @@ create-cluster:
 --instance-groups \
 'Name=Master,${MASTER_BID_PRICE}InstanceCount=1,InstanceGroupType=MASTER,InstanceType=${MASTER_INSTANCE}' \
 'Name=Workers,${WORKER_BID_PRICE}InstanceCount=${WORKER_COUNT},InstanceGroupType=CORE,InstanceType=${WORKER_INSTANCE}' \
+--bootstrap-actions Name=install-geopyspark,Path=${S3_URI}/bootstrap-geopyspark.sh \
 | tee cluster-id-${EMR_TAG}.txt
+
+ingest-paris:
+	aws emr add-steps --output text --cluster-id ${CLUSTER_ID} \
+--steps Type=CUSTOM_JAR,Name="SpaceNet Ingest: Paris ${NAME}",Jar=command-runner.jar,Args=[\
+spark-submit,--master,yarn-cluster,\
+--class,rastervision.viz.ingest.Ingest,\
+--driver-memory,${EXECUTOR_MEMORY},\
+--driver-cores,${EXECUTOR_CORES},\
+--executor-memory,${EXECUTOR_MEMORY},\
+--executor-cores,${EXECUTOR_CORES},\
+--conf,spark.driver.maxResultSize=4g,\
+--conf,spark.dynamicAllocation.enabled=true,\
+--jars,"/usr/local/lib/python3.4/site-packages/geopyspark/jars/geotrellis-backend-assembly-0.1.0.jar",\
+${S3_URI}/ingest.py,\
+--input,${INPUT_PARIS},\
+--catalog,${S3_CATALOG},\
+--name,"spacenet-paris-imagery",\
+--partitions,5000\
+] | cut -f2 | tee last-step-id.txt
 
 ingest-dsm:
 	aws emr add-steps --output text --cluster-id ${CLUSTER_ID} \
