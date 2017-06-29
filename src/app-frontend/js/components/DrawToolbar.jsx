@@ -104,7 +104,7 @@ export default class DrawToolbar extends Component {
         if (this.state.isClear) {
             this.setState({ isClear: false });
             drawPolygon(map, polygonDefaults)
-                .then(shape => {
+                .then((shape) => {
                     onSetPolygon(shape);
                 })
                 .catch(() => {
@@ -119,7 +119,7 @@ export default class DrawToolbar extends Component {
         if (this.state.isClear) {
             this.setState({ isClear: false });
             drawPoint(map)
-                .then(shape => {
+                .then((shape) => {
                     onSetPoint(shape);
                 })
                 .catch(() => {
@@ -132,16 +132,16 @@ export default class DrawToolbar extends Component {
         // drawing/drawn so disable draw, enable clear
         const disabledClass = 'leaflet-disabled';
         let drawDisabledClass = disabledClass;
-        let drawTitle = 'Area already drawn';
-        let pointTitle = 'Point already drawn';
+        // let drawTitle = 'Area already drawn';
+        // let pointTitle = 'Point already drawn';
         let clearDisabledClass = '';
         let clearTitle = 'Clear geometries';
 
         // isClear so enable draw, disable clear
         if (this.state.isClear) {
             drawDisabledClass = '';
-            drawTitle = 'Draw an area';
-            pointTitle = 'Drop a point';
+            // drawTitle = 'Draw an area';
+            // pointTitle = 'Drop a point';
             clearDisabledClass = disabledClass;
             clearTitle = 'No geometries to clear';
         }
