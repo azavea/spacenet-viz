@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { Spinner, Slider, Button, Tabs, TabList, TabPanel, Tab } from "@blueprintjs/core";
+import { Spinner } from '@blueprintjs/core';
 
 import {
     setAnalysisOn,
@@ -15,33 +15,32 @@ export default class Analysis extends Component {
 
     onCancelClicked() {
         const { dispatch } = this.props;
-        console.log("CANCEL ANALYSIS");
+        // console.log("CANCEL ANALYSIS");
         dispatch(setAnalysisOn(false));
     }
 
     render() {
         const {
             analysisOn,
-            polygon,
-            point,
             isFetching,
             results } = this.props;
 
-        if(!analysisOn) { return null; }
+        if (!analysisOn) { return null; }
 
         let body = null;
-        if(isFetching) {
-            body =
-            <div className="analyze-result-wrapper active">
-                <div className="analyze-spinner">
-                    <Spinner className=".pt-large"/>
+        if (isFetching) {
+            body = (
+                <div className="analyze-result-wrapper active">
+                    <div className="analyze-spinner">
+                        <Spinner className=".pt-large" />
+                    </div>
                 </div>
-              </div>
-        } else if(results) {
-            if(results.type == 'point') {
-                if(results.value2) {
+            );
+        } else if (results) {
+            if (results.type === 'point') {
+                if (results.value2) {
                     // Diff
-                    body =
+                    body = (
                         <div className="analyze-result-wrapper active">
                             <div className="analyze-result">
                                 <div className="analyze-number">{results.value1}</div>
@@ -52,20 +51,22 @@ export default class Analysis extends Component {
                                 <div className="label primary" htmlFor="">Snow Off Elevation (m)</div>
                             </div>
                         </div>
+                    );
                 } else {
                     // Single layer
-                    body =
+                    body = (
                         <div className="analyze-result-wrapper active">
                             <div className="analyze-result">
                                 <div className="analyze-number">{results.value}</div>
                                 <div className="label primary" htmlFor="">Elevation (m)</div>
                             </div>
                         </div>
+                    );
                 }
             } else { // polygon
-                if(results.volume) {
+                if (results.volume) {
                     // Diff
-                    body =
+                    body = (
                         <div className="analyze-result-wrapper active">
                             <div className="analyze-result">
                                 <div className="analyze-number">{results.mean}</div>
@@ -84,9 +85,10 @@ export default class Analysis extends Component {
                                 <div className="label primary" htmlFor="">Volume Change (m<sup>3</sup>)</div>
                             </div>
                         </div>
+                    );
                 } else {
                     // Single layer
-                    body =
+                    body = (
                         <div className="analyze-result-wrapper active">
                             <div className="analyze-result">
                                 <div className="analyze-number">{results.mean}</div>
@@ -101,14 +103,16 @@ export default class Analysis extends Component {
                                 <div className="label primary" htmlFor="">Maximum Elevation (m)</div>
                             </div>
                         </div>
+                    );
                 }
             }
         } else {
-            body =
+            body = (
                 <div className="analyze-description active">
-                        <p>Draw an area or drop a point on the map to calculate
-                            statistics for that location.</p>
+                    <p>Draw an area or drop a point on the map to calculate
+                        statistics for that location.</p>
                 </div>
+            );
         }
 
         return (
@@ -132,4 +136,4 @@ Analysis.propTypes = {
     dispatch: PropTypes.func.isRequired,
     analysisOn: PropTypes.bool.isRequired,
     results: PropTypes.object.isRequired,
-}
+};
