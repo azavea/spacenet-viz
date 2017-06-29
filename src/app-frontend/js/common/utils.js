@@ -42,7 +42,7 @@ export function numericLabel(number) {
 // Thanks to http://stackoverflow.com/a/196991/6995854
 export function sentenceCase(sentence) {
     return sentence.replace(/\w\S*/g, word =>
-        word.charAt(0).toUpperCase() + word.substr(1).toLowerCase()
+        word.charAt(0).toUpperCase() + word.substr(1).toLowerCase(),
     );
 }
 
