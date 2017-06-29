@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 
-import { Slider, Button, Tabs, TabList, TabPanel, Tab } from "@blueprintjs/core";
+import { Slider, Button } from '@blueprintjs/core';
 
 import {
     setTargetLayerOpacity,
     setDataSourceType,
-    setDEMAlgorithm
+    setDEMAlgorithm,
 } from './actions';
 
 export default class ChangeDetection extends Component {
@@ -21,33 +21,33 @@ export default class ChangeDetection extends Component {
 
     handleTargetLayerOpacityChange(value) {
         const { dispatch } = this.props;
-        console.log("CHANGING");
+        // console.log('CHANGING');
         dispatch(setTargetLayerOpacity(value));
     }
 
     checkStatic() {
         const { dispatch } = this.props;
-        dispatch(setDataSourceType("STATIC"));
+        dispatch(setDataSourceType('STATIC'));
     }
 
     checkDynamic() {
         const { dispatch } = this.props;
-        dispatch(setDataSourceType("DYNAMIC"));
+        dispatch(setDataSourceType('DYNAMIC'));
     }
 
     checkIdw() {
         const { dispatch } = this.props;
-        dispatch(setDEMAlgorithm("IDW"));
+        dispatch(setDEMAlgorithm('IDW'));
     }
 
     checkTin() {
         const { dispatch } = this.props;
-        dispatch(setDEMAlgorithm("TIN"));
+        dispatch(setDEMAlgorithm('TIN'));
     }
 
     isActive(b) {
-        console.log("BOOLEAN " + b);
-        return b ? "pt-active" : "";
+        // console.log('BOOLEAN " + b);
+        return b ? 'pt-active' : '';
     }
 
     render() {
@@ -77,7 +77,9 @@ export default class ChangeDetection extends Component {
                 className={this.isActive(dynamicChecked)}
                 />
                 </div>
-                <label htmlFor="" className="secondary" style={{display: "none"}}>Min &amp; Max Elevation</label>
+                <label htmlFor="" className="secondary" style={{display: "none"}}>
+                Min &amp; Max Elevation
+                </label>
                 <div style={{display: "none"}}>(Slider)</div>
                 </div> */}
                 <div className="option-section">
@@ -123,4 +125,4 @@ ChangeDetection.propTypes = {
     staticChecked: PropTypes.bool.isRequired,
     dynamicChecked: PropTypes.bool.isRequired,
     targetLayerOpacity: PropTypes.number.isRequired,
-}
+};
