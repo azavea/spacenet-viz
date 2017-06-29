@@ -1,25 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
-import { head, isEqual, isEmpty } from 'lodash';
-import { Slider, Button, Tabs, TabList, TabPanel, Tab } from "@blueprintjs/core";
-
-import ScrollButton from 'components/ScrollButton';
-import {
-    GeoJSONGeometryTypeDef,
-    QueryResultTypeDef,
-} from 'TypeDefs';
 
 import Map from './Map';
 import SingleLayer from './SingleLayer';
-import ChangeDetection from './ChangeDetection';
 import Analysis from './Analysis';
 
-import { LayerNames as LN } from '../common/constants.js';
+import { LayerNames as LN } from '../common/constants';
 
 import {
-    setTargetLayerOpacity,
-    setDataSourceType,
     clearGeometries,
     setPolygon,
     setPoint,
@@ -28,10 +16,8 @@ import {
     fetchSinglePointStats,
     fetchDiffPointStats,
     fetchSinglePolyStats,
-    fetchDiffPolyStats
+    fetchDiffPolyStats,
 } from './actions';
-
-import Favicon from '../../img/Favicon.png';
 
 class App extends Component {
     constructor(props) {
@@ -53,13 +39,12 @@ class App extends Component {
         const {
             dispatch,
             singleLayer,
-            changeDetection,
             zoom,
         } = this.props;
-        console.log("SET POLYGON: " + polygon);
+        // console.log('SET POLYGON: ' + polygon);
         dispatch(setPolygon(polygon));
-        if(singleLayer.active) {
-            let layerName = singleLayer.targetLayerName == "SNOW-ON" ? LN.snowOn : LN.snowOff;
+        if (singleLayer.active) {
+            let layerName = singleLayer.targetLayerName === 'SNOW-ON' ? LN.snowOn : LN.snowOff;
             layerName = singleLayer.idwChecked ? LN.addIdw(layerName) : LN.addTin(layerName);
 
             dispatch(fetchSinglePolyStats(layerName, zoom, polygon));
@@ -69,7 +54,6 @@ class App extends Component {
             let layerName2 = LN.snowOff;
             layerName2 = changeDetection.idwChecked ? LN.addIdw(layerName2) : LN.addTin(layerName2);
             dispatch(fetchDiffPolyStats(layerName1, layerName2, zoom, polygon));
-
         }
     }
 
@@ -81,8 +65,8 @@ class App extends Component {
             zoom,
         } = this.props;
         dispatch(setPoint(point));
-        if(singleLayer.active) {
-            let layerName = singleLayer.targetLayerName == "SNOW-ON" ? LN.snowOn : LN.snowOff;
+        if (singleLayer.active) {
+            let layerName = singleLayer.targetLayerName === 'SNOW-ON' ? LN.snowOn : LN.snowOff;
             layerName = singleLayer.idwChecked ? LN.addIdw(layerName) : LN.addTin(layerName);
             dispatch(fetchSinglePointStats(layerName, zoom, point));
         } else {
@@ -91,7 +75,6 @@ class App extends Component {
             let layerName2 = LN.snowOff;
             layerName2 = changeDetection.idwChecked ? LN.addIdw(layerName2) : LN.addTin(layerName2);
             dispatch(fetchDiffPointStats(layerName1, layerName2, zoom, point));
-
         }
     }
 
@@ -119,7 +102,8 @@ class App extends Component {
         return (
             <div className="flex-expand-column height-100percent mode-detail pt-dark">
                 <main>
-                    {/* <button className="button-analyze" onClick={this.onAnalyzeClicked}>Analyze</button> */}
+                    {/* <button className="button-analyze"
+                    onClick={this.onAnalyzeClicked}>Analyze</button> */}
                     <div className="sidebar options">
                         {/* <Tabs
                         onChange={this.onTabChanged}
@@ -130,17 +114,17 @@ class App extends Component {
                         <Tab><span>Change Detection</span></Tab>
                         </TabList>
                         <TabPanel> */}
-                                <SingleLayer
-                                    dispatch={dispatch}
-                                    imagery={singleLayer.imagery}
-                                    dsm={singleLayer.dsm}
-                                    dsmGt={singleLayer.dsmGt}
-                                    labels={singleLayer.labels}
-                                    models={singleLayer.models}
-                                    ab={singleLayer.ab}
-                                    abDsm={singleLayer.abDsm}
-                                />
-                                {/* </TabPanel>
+                        <SingleLayer
+                            dispatch={dispatch}
+                            imagery={singleLayer.imagery}
+                            dsm={singleLayer.dsm}
+                            dsmGt={singleLayer.dsmGt}
+                            labels={singleLayer.labels}
+                            models={singleLayer.models}
+                            ab={singleLayer.ab}
+                            abDsm={singleLayer.abDsm}
+                        />
+                        {/* </TabPanel>
                                 <TabPanel>
                                 <ChangeDetection
                                 dispatch={dispatch}
@@ -163,18 +147,19 @@ class App extends Component {
                         isFetching={analysis.isFetching}
                     />
 
-                    <Map className="map"
-                         dispatch={dispatch}
-                         center={center}
-                         zoom={zoom}
-                         singleLayer={singleLayer}
-                         changeDetection={changeDetection}
-                         analysisOn={analysis.analysisOn}
-                         onClearGeometries={this.onClearGeometries}
-                         onSetPolygon={this.onSetPolygon}
-                         onSetPoint={this.onSetPoint}
-                         polygon={analysis.polygon}
-                         point={analysis.point}
+                    <Map
+                        className="map"
+                        dispatch={dispatch}
+                        center={center}
+                        zoom={zoom}
+                        singleLayer={singleLayer}
+                        changeDetection={changeDetection}
+                        analysisOn={analysis.analysisOn}
+                        onClearGeometries={this.onClearGeometries}
+                        onSetPolygon={this.onSetPolygon}
+                        onSetPoint={this.onSetPoint}
+                        polygon={analysis.polygon}
+                        point={analysis.point}
                     />
                 </main>
             </div>
