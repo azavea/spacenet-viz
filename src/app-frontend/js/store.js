@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
-import { isDevelopment } from 'constants.js';
+import { isDevelopment } from 'constants';
 
 let innerCreateStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 if (isDevelopment) {
