@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import 'leaflet-draw';
 import L from 'leaflet';
 
-import { polygonDefaults } from '../common/constants.js';
+import { polygonDefaults } from '../common/constants';
 
 // Cancel any previous draw action in progress.
 function cancelDrawing(map) {
