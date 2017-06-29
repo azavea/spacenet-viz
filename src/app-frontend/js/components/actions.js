@@ -7,20 +7,20 @@ import {
     diffPolyStats,
 } from 'api';
 
-export const SET_ZOOM = "SET_ZOOM";
-export const SET_IMAGERY_TYPE = "SET_IMAGERY_TYPE";
-export const SET_IMAGERY_OPACITY = "SET_IMAGERY_OPACITY";
-export const SET_DSM_TYPE = "SET_DSM_TYPE";
-export const SET_DSM_OPACITY = "SET_DSM_OPACITY";
-export const SET_LABELS_TYPE = "SET_LABELS_TYPE";
-export const SET_LABELS_OPACITY = "SET_LABELS_OPACITY";
-export const SET_MODEL_PREDICTION_TYPE = "SET_MODEL_PREDICTION_TYPE";
-export const SET_MODEL_PREDICTION_OPACITY = "SET_MODEL_PREDICTION_OPACITY";
-export const SET_MODEL_PROBABILITIES_TYPE = "SET_MODEL_PROBABILITIES_TYPE";
-export const SET_MODEL_PROBABILITIES_OPACITY = "SET_MODEL_PROBABILITIES_OPACITY";
-export const SET_MODEL_PROBABILITIES_LABEL = "SET_MODEL_PROBABILITIES_LABEL";
-export const SET_AB_TYPE = "SET_AB_TYPE";
-export const SET_AB_OPACITY = "SET_AB_OPACITY";
+export const SET_ZOOM = 'SET_ZOOM';
+export const SET_IMAGERY_TYPE = 'SET_IMAGERY_TYPE';
+export const SET_IMAGERY_OPACITY = 'SET_IMAGERY_OPACITY';
+export const SET_DSM_TYPE = 'SET_DSM_TYPE';
+export const SET_DSM_OPACITY = 'SET_DSM_OPACITY';
+export const SET_LABELS_TYPE = 'SET_LABELS_TYPE';
+export const SET_LABELS_OPACITY = 'SET_LABELS_OPACITY';
+export const SET_MODEL_PREDICTION_TYPE = 'SET_MODEL_PREDICTION_TYPE';
+export const SET_MODEL_PREDICTION_OPACITY = 'SET_MODEL_PREDICTION_OPACITY';
+export const SET_MODEL_PROBABILITIES_TYPE = 'SET_MODEL_PROBABILITIES_TYPE';
+export const SET_MODEL_PROBABILITIES_OPACITY = 'SET_MODEL_PROBABILITIES_OPACITY';
+export const SET_MODEL_PROBABILITIES_LABEL = 'SET_MODEL_PROBABILITIES_LABEL';
+export const SET_AB_TYPE = 'SET_AB_TYPE';
+export const SET_AB_OPACITY = 'SET_AB_OPACITY';
 export const CLEAR_GEOMETRIES = 'CLEAR_GEOMETRIES';
 export const SET_POLYGON = 'SET_POLYGON';
 export const SET_POINT = 'SET_POINT';
@@ -40,14 +40,14 @@ export function setZoom(zoom) {
 export function setImageryType(layerType) {
     return {
         type: SET_IMAGERY_TYPE,
-        payload: layerType
+        payload: layerType,
     };
 }
 
 export function setImageryOpacity(value) {
     return {
         type: SET_IMAGERY_OPACITY,
-        payload: value
+        payload: value,
     };
 }
 
@@ -55,7 +55,7 @@ export function setDsmType(layerType, layerDiscriminator) {
     return {
         type: SET_DSM_TYPE,
         payload: layerType,
-        isGt: layerDiscriminator == "gt"
+        isGt: layerDiscriminator == 'gt',
     };
 }
 
@@ -63,56 +63,56 @@ export function setDsmOpacity(value, layerDiscriminator) {
     return {
         type: SET_DSM_OPACITY,
         payload: value,
-        isGt: layerDiscriminator == "gt"
+        isGt: layerDiscriminator == 'gt',
     };
 }
 
 export function setLabelsType(layerType) {
     return {
         type: SET_LABELS_TYPE,
-        payload: layerType
+        payload: layerType,
     };
 }
 
 export function setLabelsOpacity(value) {
     return {
         type: SET_LABELS_OPACITY,
-        payload: value
+        payload: value,
     };
 }
 
 export function setModelPredictionType(modelId, layerType) {
     return {
         type: SET_MODEL_PREDICTION_TYPE,
-        payload: { modelId: modelId, layerType: layerType }
+        payload: { modelId, layerType },
     };
 }
 
 export function setModelPredictionOpacity(modelId, value) {
     return {
         type: SET_MODEL_PREDICTION_OPACITY,
-        payload: { modelId: modelId, opacity: value }
+        payload: { modelId, opacity: value },
     };
 }
 
 export function setModelProbabilitiesType(modelId, layerType) {
     return {
         type: SET_MODEL_PROBABILITIES_TYPE,
-        payload: { modelId: modelId, layerType: layerType }
+        payload: { modelId, layerType },
     };
 }
 
 export function setModelProbabilitiesOpacity(modelId, value) {
     return {
         type: SET_MODEL_PROBABILITIES_OPACITY,
-        payload: { modelId: modelId, opacity: value }
+        payload: { modelId, opacity: value },
     };
 }
 
 export function setModelProbabilitiesLabel(modelId, value) {
     return {
         type: SET_MODEL_PROBABILITIES_LABEL,
-        payload: { modelId: modelId, labelId: value }
+        payload: { modelId, labelId: value },
     };
 }
 
@@ -120,7 +120,7 @@ export function setAbType(layerType, layerDiscriminator) {
     return {
         type: SET_AB_TYPE,
         payload: layerType,
-        isDsm: layerDiscriminator == "dsm"
+        isDsm: layerDiscriminator == 'dsm',
     };
 }
 
@@ -128,7 +128,7 @@ export function setAbOpacity(value, layerDiscriminator) {
     return {
         type: SET_AB_OPACITY,
         payload: value,
-        isDsm: layerDiscriminator == "dsm"
+        isDsm: layerDiscriminator == 'dsm',
     };
 }
 
@@ -157,38 +157,38 @@ export function setPoint(point) {
 export function setAnalysisOn(flag) {
     return {
         type: SET_ANALYSIS_ON,
-        payload: flag
+        payload: flag,
     };
 }
 
 export function setActiveTab(idx) {
     return {
         type: SET_ACTIVE_TAB,
-        payload: idx
+        payload: idx,
     };
 }
 
 export function startFetchStats() {
-    console.log("START_FETCH_STATS");
+    console.log('START_FETCH_STATS');
     return {
         type: START_FETCH_STATS,
-        payload: null
+        payload: null,
     };
 }
 
 export function endFetchStats(result) {
-    console.log("END_FETCH_STATS: " + result);
+    console.log(`END_FETCH_STATS: ${result}`);
     return {
         type: END_FETCH_STATS,
-        payload: result
+        payload: result,
     };
 }
 
 export function failFetchStats(error) {
-    console.log("FAIL_FETCH_STATS: " + error);
+    console.log(`FAIL_FETCH_STATS: ${error}`);
     return {
         type: FAIL_FETCH_STATS,
-        payload: error
+        payload: error,
     };
 }
 
