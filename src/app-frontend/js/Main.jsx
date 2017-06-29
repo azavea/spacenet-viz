@@ -6,7 +6,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import '../sass/main.scss';
 import createStoreWithMiddleware from './store';
 import mainReducer from './reducer';
-import App from './components/App.jsx';
+import App from './components/App';
 
 const store = createStoreWithMiddleware(mainReducer);
 
