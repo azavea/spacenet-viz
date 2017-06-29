@@ -55,7 +55,7 @@ export function setDsmType(layerType, layerDiscriminator) {
     return {
         type: SET_DSM_TYPE,
         payload: layerType,
-        isGt: layerDiscriminator == 'gt',
+        isGt: layerDiscriminator === 'gt',
     };
 }
 
@@ -63,7 +63,7 @@ export function setDsmOpacity(value, layerDiscriminator) {
     return {
         type: SET_DSM_OPACITY,
         payload: value,
-        isGt: layerDiscriminator == 'gt',
+        isGt: layerDiscriminator === 'gt',
     };
 }
 
@@ -120,7 +120,7 @@ export function setAbType(layerType, layerDiscriminator) {
     return {
         type: SET_AB_TYPE,
         payload: layerType,
-        isDsm: layerDiscriminator == 'dsm',
+        isDsm: layerDiscriminator === 'dsm',
     };
 }
 
@@ -128,7 +128,7 @@ export function setAbOpacity(value, layerDiscriminator) {
     return {
         type: SET_AB_OPACITY,
         payload: value,
-        isDsm: layerDiscriminator == 'dsm',
+        isDsm: layerDiscriminator === 'dsm',
     };
 }
 
@@ -169,7 +169,7 @@ export function setActiveTab(idx) {
 }
 
 export function startFetchStats() {
-    console.log('START_FETCH_STATS');
+    // console.log('START_FETCH_STATS');
     return {
         type: START_FETCH_STATS,
         payload: null,
@@ -177,7 +177,7 @@ export function startFetchStats() {
 }
 
 export function endFetchStats(result) {
-    console.log(`END_FETCH_STATS: ${result}`);
+    // console.log(`END_FETCH_STATS: ${result}`);
     return {
         type: END_FETCH_STATS,
         payload: result,
@@ -185,7 +185,7 @@ export function endFetchStats(result) {
 }
 
 export function failFetchStats(error) {
-    console.log(`FAIL_FETCH_STATS: ${error}`);
+    // console.log(`FAIL_FETCH_STATS: ${error}`);
     return {
         type: FAIL_FETCH_STATS,
         payload: error,
