@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import axios from 'axios';
 
 
@@ -31,7 +30,8 @@ export function singlePolyStats(layerName, zoom, poly) {
 }
 
 export function diffPolyStats(layer1Name, layer2Name, zoom, poly) {
-    const url = `${apiUrl.poly.diff + layer1Name}/${layer2Name}/${zoom}?poly=${JSON.stringify(poly)}`;
+    const url =
+    `${apiUrl.poly.diff + layer1Name}/${layer2Name}/${zoom}?poly=${JSON.stringify(poly)}`;
     return axios.get(url);
 }
 
