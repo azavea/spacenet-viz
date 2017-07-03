@@ -17,6 +17,8 @@ Syncs Paris data from s3://spacenet-data to s3://dest/s3/path (no s3:// or trail
 DIR="$(dirname "$0")"
 
 function download_paris() {
+    echo "==> Removing local Paris data directory"
+    rm -rf AOI_3_Paris
     echo "==> Making local Paris data directory"
     mkdir AOI_3_Paris
     echo "==> Getting Paris data from s3://spacenet-dataset locally"

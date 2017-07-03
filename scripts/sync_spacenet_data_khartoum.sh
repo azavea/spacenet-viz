@@ -17,6 +17,8 @@ Syncs Khartoum data from s3://spacenet-data to s3://dest/s3/path (no s3:// or tr
 DIR="$(dirname "$0")"
 
 function download_khartoum() {
+    echo "==> Removing local Khartoum data directory"
+    rm -rf AOI_5_Khartoum
     echo "==> Making local Khartoum data directory"
     mkdir AOI_5_Khartoum
     echo "==> Getting Khartoum data from s3://spacenet-dataset locally"

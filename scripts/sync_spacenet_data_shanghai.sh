@@ -17,6 +17,8 @@ Syncs Shanghai data from s3://spacenet-data to s3://dest/s3/path (no s3:// or tr
 DIR="$(dirname "$0")"
 
 function download_shanghai() {
+    echo "==> Removing local Shanghai data directory"
+    rm -rf AOI_4_Shanghai
     echo "==> Making local Shanghai data directory"
     mkdir AOI_4_Shanghai
     echo "==> Getting Shanghai data from s3://spacenet-dataset locally"

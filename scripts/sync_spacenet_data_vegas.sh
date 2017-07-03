@@ -17,6 +17,8 @@ Syncs Vegas data from s3://spacenet-data to s3://dest/s3/path (no s3:// or trail
 DIR="$(dirname "$0")"
 
 function download_vegas() {
+    echo "==> Removing local Vegas data directory"
+    rm -rf AOI_2_Vegas
     echo "==> Making local Vegas data directory"
     mkdir AOI_2_Vegas
     echo "==> Getting Vegas data from s3://spacenet-dataset locally"

@@ -17,6 +17,8 @@ Syncs Rio data from s3://spacenet-data to s3://dest/s3/path (no s3:// or trailin
 DIR="$(dirname "$0")"
 
 function download_rio() {
+    echo "==> Removing local Rio data directory"
+    rm -rf AOI_1_Rio
     echo "==> Making local Rio data directory"
     mkdir -p AOI_1_Rio/processedData
     mkdir -p AOI_1_Rio/srcData/rasterData
