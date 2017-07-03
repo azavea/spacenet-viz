@@ -39,8 +39,10 @@ then
     else
         if [ -n "$1" ]
         then
-            echo $1
+            echo "Syncing data to s3://$1/"
+            date
             download_khartoum $1
+            date
         else
             echo "ERROR: Destination S3 path required."
             echo
