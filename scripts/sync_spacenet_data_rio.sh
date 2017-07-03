@@ -18,6 +18,7 @@ DIR="$(dirname "$0")"
 
 function download_rio() {
     echo "==> Making local Rio data directory"
+    mkdir -p AOI_1_Rio/processedData
     mkdir -p AOI_1_Rio/srcData/rasterData
     mkdir -p AOI_1_Rio/srcData/vectorData
     echo "==> Getting Rio data from s3://spacenet-dataset locally"
