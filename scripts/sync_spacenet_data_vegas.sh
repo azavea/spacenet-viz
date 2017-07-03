@@ -17,18 +17,17 @@ Syncs Vegas data from s3://spacenet-data to s3://dest/s3/path (no s3:// or trail
 DIR="$(dirname "$0")"
 
 function download_vegas() {
-    echo "==> Removing local Vegas data directory"
+    echo "==> Recreating local Vegas data directory"
     rm -rf AOI_2_Vegas
-    echo "==> Making local Vegas data directory"
     mkdir AOI_2_Vegas
     echo "==> Getting Vegas data from s3://spacenet-dataset locally"
-    aws s3api get-object --bucket spacenet-dataset --key AOI_2_Vegas/AOI_2_Vegas_Train.tar.gz --request-payer requester AOI_2_Vegas/AOI_2_Vegas_Train.tar.gz
+    aws s3api get-object --bucket spacenet-dataset --key AOI_2_Vegas/AOI_2_Vegas_Train.tar.gz --request-payer requester AOI_2_Vegas/AOI_2_Vegas_Train.tar.gz >/dev/null
     echo "==> Unzipping Vegas data locally"
-    tar -xzf AOI_2_Vegas/AOI_2_Vegas_Train.tar.gz --directory AOI_2_Vegas/
+    tar -xzf AOI_2_Vegas/AOI_2_Vegas_Train.tar.gz --directory AOI_2_Vegas/ >/dev/null
     echo "==> Deleting local zip files before copying local Vegas data data to s3"
     find . -name "*.tar.gz" -type f -delete
     echo "==> Copying Vegas data to your s3 bucket"
-    aws s3 cp AOI_2_Vegas/ s3://$1/AOI_2_Vegas/ --recursive --exclude ".*"
+    aws s3 cp AOI_2_Vegas/ s3://$1/AOI_2_Vegas/ --recursive --exclude ".*" >/dev/null
     echo "==> Removing Vegas data locally"
     rm -rf AOI_2_Vegas
 }

@@ -17,18 +17,17 @@ Syncs Khartoum data from s3://spacenet-data to s3://dest/s3/path (no s3:// or tr
 DIR="$(dirname "$0")"
 
 function download_khartoum() {
-    echo "==> Removing local Khartoum data directory"
+    echo "==> Recreating local Khartoum data directory"
     rm -rf AOI_5_Khartoum
-    echo "==> Making local Khartoum data directory"
     mkdir AOI_5_Khartoum
     echo "==> Getting Khartoum data from s3://spacenet-dataset locally"
-    aws s3api get-object --bucket spacenet-dataset --key AOI_5_Khartoum/AOI_5_Khartoum_Train.tar.gz --request-payer requester AOI_5_Khartoum/AOI_5_Khartoum_Train.tar.gz
+    aws s3api get-object --bucket spacenet-dataset --key AOI_5_Khartoum/AOI_5_Khartoum_Train.tar.gz --request-payer requester AOI_5_Khartoum/AOI_5_Khartoum_Train.tar.gz >/dev/null
     echo "==> Unzipping Khartoum data locally"
-    tar -xzf AOI_5_Khartoum/AOI_5_Khartoum_Train.tar.gz --directory AOI_5_Khartoum/
+    tar -xzf AOI_5_Khartoum/AOI_5_Khartoum_Train.tar.gz --directory AOI_5_Khartoum/ >/dev/null
     echo "==> Deleting local zip files before copying local Khartoum data to s3"
     find . -name "*.tar.gz" -type f -delete
     echo "==> Copying Khartoum data to your s3 bucket"
-    aws s3 cp AOI_5_Khartoum/ s3://$1/AOI_5_Khartoum/ --recursive --exclude ".*"
+    aws s3 cp AOI_5_Khartoum/ s3://$1/AOI_5_Khartoum/ --recursive --exclude ".*" >/dev/null
     echo "==> Removing Khartoum data locally"
     rm -rf AOI_5_Khartoum
 }
